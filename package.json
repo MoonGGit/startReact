@@ -1,0 +1,34 @@
+{
+  "name": "testproject",
+  "version": "1.0.0",
+  "description": "first Test Project ",
+  "main": "index.js",
+  "scripts": {
+    "test1": "node test.js",
+    "build": "webpack --config webpack.config.dev.js",
+    "devserverhot": "webpack-dev-server --config webpack.config.dev.js --hot"
+  },
+  "author": "MoonG",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^2.0.1",
+    "css-loader": "^2.1.1",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.6.0",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack-cli": "^3.3.1",
+    "webpack": "^4.41.2",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "dependencies": {
+  }
+}

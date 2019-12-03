@@ -1,0 +1,22 @@
+@@NPM 명령어
+
+
+@@모듈
+
+@babel/core
+@babel/preset-env
+@babel/preset-react
+babel-loader
+clean-webpack-plugin
+css-loader
+html-loader
+html-webpack-plugin
+mini-css-extract-plugin
+node-sass
+react
+react-dom
+sass-loader
+style-loader
+webpack-cli
+webpack
+webpack-dev-server

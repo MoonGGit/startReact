@@ -1,0 +1,11 @@
+CTRL K O : 폴더 열기
+CTRL B : 사이드바 토글
+SHIFT ALT F : 문서 자동 정렬
+SHIFT ALT A : 블럭 주석
+CTRL SHIFT [ : 코드 접기
+CTRL SHIFT ] : 코드 펼치기
+
+
+CTRL D : 같은 단어 다중 선택
+CTRL F2 : 커서 준 단어 모두 선택
+CTRL G : 라인 이동

@@ -1,0 +1,63 @@
+@@ 깃 처음 사용
+* 사전 조건
+i) github 가입 후 저장소 존재함
+ii) vscode로 임포트
+
+1. 윈도우용 git 설치
+https://git-scm.com/ 에서 다운로드
+설치 옵션은 디폴트로 진행하면 무방
+
+2. 설치 완료 후 기본 셋팅
+Git Bash 실행 > 이름과 메일 주소 입력 (필수)
+git config --global user.name "이름"
+git config --global user.email "이메일"
+
+3. vocode 셋팅
+미설치 상태면 설치 먼저 진행 (https://code.visualstudio.com/)
+view > command palette > git clone
+github 저장소 주소 입력 > 로컬PC의 저장 경로 지정
+
+>git init   // 저장소 초기화
+>git remote add origin https://github.com/MoonGGit/startReact.git   // 저장소 연결
+>git remote -v  // 연결상태 확인
+>git status     // 로컬저장소 상태와 add 할 파일 확인
+>git add .      // 전체 파일을 add
+>git commit -m "description ~~" 
+>git push -u origin master      // 마스터 브런치에 업로드
+
+@@ 원격 브랜치 삭제
+>git branch         // 로컬의 브랜치 리스트 확인
+>git branch -r      // 원격의 브랜치 리스트 확인
+>git branch -d 이름     // 로컬의 브랜치 삭제
+>git fetch --all --prune    // 동기화(원격 브랜치도 삭제됨)
+>git remote prune origin    // 동기화(원격 브랜치도 삭제됨)
+>git push origin --delete 이름  // 원격 브랜치 삭제
+
+@@ 해당 폴더 깃 해제
+>rm -r .git
+
+@@깃 파일 및 폴더 삭제
+>git rm -rf {파일 및 폴더명}    // 원격 저장소와 로컬 모두 삭제
+>git rm -r --cached {파일 및 폴더명}    // 원격 저장소만 삭제
+>git commit -m "description ~~" 
+>git push origin master
+
+@@ 무시 설정
+.gitignore 파일 생성
+
+# 이것은 코멘트
+# 파일이름을 넣으면 모든 디렉토리에서 해당 파일 무시
+ignore-file.txt
+
+# /로 끝나면 해당 디렉토리 전체를 무시
+ignore-dir/
+
+# 와일드카드도 사용가능
+ignore-file*
+*.log
+
+
+
+Fetch : 중앙 저장소의 소스를 로컬 저장소로 가져온다!  그러나 현재 작업중인 소스들을 변경하는 Merge 작업을 하지는 않는다
+
+Pull : 중앙 저장소의 소스를 로컬 저장소로 가져온다! 또한 현재 작업중인 소스들의 Merge 작업까지 통합하여 수행한다
