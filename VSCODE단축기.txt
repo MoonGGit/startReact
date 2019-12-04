@@ -6,6 +6,14 @@ CTRL SHIFT [ : 코드 접기
 CTRL SHIFT ] : 코드 펼치기
 
 
-CTRL D : 같은 단어 다중 선택
+CTRL D : 같은 단어 다중 선택, 한번 더 누르면 동시 수정가능
 CTRL F2 : 커서 준 단어 모두 선택
 CTRL G : 라인 이동
+
+CTRL \ : 화면 추가
+CTRL 좌우 방향키 : 화면 추가, 닫기
+CTRL SHIFT \ : 블럭 앞 뒤 이동
+
+CTRL 위아래 방향키 : 다중 커서, 취소는 esc
+
+

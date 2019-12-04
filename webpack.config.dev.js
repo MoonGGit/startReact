@@ -10,6 +10,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const UglifyWebpackPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     // 시작점(모든 import 등)
@@ -24,7 +25,14 @@ module.exports = {
     devServer: {
         contentBase: path.resolve("./dist"),
         index: "disIndex.html",
-        port: 9000
+        port: 9000,     // webpack-dev-server –port 9000
+        open : true     // dev server 구동 후 브라우저 열기, webpack-dev-server –open
+        /* 
+        host : '127.0.0.1', // webpack-dev-server –host 127.0.0.1
+        compress: true,     // 모든 항목에 대해 gzip압축 사용, webpack-dev-server –compress
+        hot : true,     // webpack의 HMR 기능 활성화	
+        inline: true,   // inline 모드 활성화, webpack-dev-server –inline=true
+        */
     },
     // 번들링 규칙?
     module: {
@@ -107,15 +115,20 @@ module.exports = {
     plugins: [
         // 자동으로 파일들을 html에 바인딩 해줌
         new HtmlWebPackPlugin({
+          //favicon: './static/asset/favicon.ico',
           template: './public/index.html', // public/index.html 파일을 읽는다.
-          filename: 'disIndex.html' // output으로 출력할 파일은 index.html 이다.
+          filename: 'disIndex.html', // output으로 출력할 파일은 index.html 이다.
+          //chunks: ['css', 'index', 'app', 'system', 'monitor']
         }),
         // 저용량 css파일로 뱉어줌
         new MiniCssExtractPlugin({
             filename: 'disStyle.css'
         }),
         // 빌드 할 때 마다 필요없는 파일들 삭제해줌
-        new CleanWebpackPlugin()
+        //new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(),
+        // 난독화와 압축
+        new UglifyWebpackPlugin()
     ]
 };
 

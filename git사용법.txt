@@ -1,4 +1,4 @@
-@@ 깃 처음 사용
+@@ 깃 불러오기
 * 사전 조건
 i) github 가입 후 저장소 존재함
 ii) vscode로 임포트
@@ -17,12 +17,13 @@ git config --global user.email "이메일"
 view > command palette > git clone
 github 저장소 주소 입력 > 로컬PC의 저장 경로 지정
 
+@@ 현재 프로젝트를 깃에 푸시
 >git init   // 저장소 초기화
 >git remote add origin https://github.com/MoonGGit/startReact.git   // 저장소 연결
 >git remote -v  // 연결상태 확인
 >git status     // 로컬저장소 상태와 add 할 파일 확인
 >git add .      // 전체 파일을 add
->git commit -m "description ~~" 
+>git commit -m "description ~~"     // add와 커밋을 동시에 : git commit -a
 >git push -u origin master      // 마스터 브런치에 업로드
 
 @@ 원격 브랜치 삭제
