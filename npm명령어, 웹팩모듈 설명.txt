@@ -1,0 +1,40 @@
+@@NPM 명령어
+
+
+
+
+@@웹팩 모듈
+https://webpack.js.org/guides/
+
+@babel/core
+@babel/preset-env
+@babel/preset-react
+babel-loader
+clean-webpack-plugin
+css-loader
+html-loader
+html-webpack-plugin
+mini-css-extract-plugin
+node-sass
+react
+react-dom
+sass-loader
+style-loader
+webpack-cli
+webpack
+webpack-dev-server
+
+file-loader
+    -> 이미지나 폰트와 같은 자산들을 하나로 통합
+url-loader
+    -> 이미지 로딩 프로세스를 향상,  특정 파일을 base64로 인코딩된 URL를 로드
+commonChunk
+    -> common하게 사용되는 모듈을 build 시에 하나의 별도의 vendor 모듈로 분리, webpack의 내장 모듈
+uglifyjs-webpack-plugin
+    -> 난독화와 압축
+로더 참고 : https://webpack.js.org/loaders/ 
+플러그인 참고 : https://webpack.js.org/plugins/
+
+
+
+
