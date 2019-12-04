@@ -23,7 +23,7 @@ github 저장소 주소 입력 > 로컬PC의 저장 경로 지정
 >git remote -v  // 연결상태 확인
 >git status     // 로컬저장소 상태와 add 할 파일 확인
 >git add .      // 전체 파일을 add
->git commit -m "description ~~"     // add와 커밋을 동시에 : git commit -a
+>git commit -m "description ~~"     // add와 커밋을 동시에 : git commit -a -m "description"
 >git push -u origin master      // 마스터 브런치에 업로드
 
 @@ 원격 브랜치 삭제
