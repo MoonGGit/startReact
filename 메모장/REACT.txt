@@ -1,0 +1,460 @@
+CBA(Component-Bases Architecture)
+
+function getValue(object, propertyName){
+  return typeof object === 'undefined' ? undefined : object[propertyName]
+}
+function getNestedValueDeclaratively(object, propertyName){
+  return propertyName.split('.').reduce(getValue, object)
+}
+console.log(getNestedValueDeclaratively( {bar: 'baz'}, 'bar') );
+
+
+
+React.createElement(elementName, data, child)
+	// data는 속성({name: 'Azat'})이나 상위 컴포넌트에서 받는 값
+ex) 
+var h1 = React.createElement('h1', null, 'Hello world!')
+ReactDOM.render(
+	h1,
+	document.getElementById('content') )
+--> 
+ReactDom.render(
+	React.createElement('h1', null, 'Hello world!'),
+	document.getElementById('content') )
+
+*중첩사용
+ReactDom.render(
+	React.createElement('div', null, h1, h1, h1, ...),
+	document.getElementById('content') )
+
+*React 컴포넌트 클래스 생성
+	//컴포넌트 클래스 = 컴포넌트
+	// 엘리먼트 = 컴포넌트 인스턴스 
+
+let h1 = React.createElement('h1', null, 'Hello world!')
+class HelloWorld extends React.Component {
+	render(){		// 엘리먼트 하나를 반환, render : function(){...} 과 같음, ES6형식
+		return React.CreateElement('div', null, h1, h1)
+	}
+}
+ReactDom.render(
+	React.createElement(HelloWorld, null),
+	document.getElementById('content') )
+
+
+*React 속성
+컴포넌트(클래스)에서 this.props의 값(this.props.PROPERTY_NAME) 임의로 사용 가능
+HTML속성이 있으면 해당 속성으로 사용, 일치하지 않으면 렌더링 않함(코드상 사용)
+		//버전 16부터는 렌더링 하도록 변경(소문자로)
+render(){
+	if(this.props.heading) return <h1>Hello</h1>
+	else return <p>Hello<p> }
+
+
+class HelloWorld extends React.Component{
+	render(){
+		return React.createElement(
+		    'h1',
+		    null,	// this.props -> 모든 속성을 자식 엘리먼트에 전달
+		    'Hello' + this.props.frameworkName + ' world!!!'
+		) } }
+React.createElement(HelloWorld, {
+	id : ...,
+	title : ...,
+	frameworkName : ... } )
+
+*JSX(Javascript + XML)
+JSX -> Babel(6) ->변환-> JavaScript
+
+트랜스컴파일러(트랜스파일러) : 다른 프로그래밍 언어로 동일 소스코드를 생성하는 컴파일러
+바벨 : https://babeljs.io/repl
+
+ReactDom.render(
+  <h1>Hello</h1>,
+  document.getElementById('t1')
+)
+
+
+class HelloWorld extends React.Component{
+	render(){
+		return(			// 이 행에 return의 내용이 없을경우 괄호 해야함! 아니면 한칸씩 위로
+			<div>
+			   <h1>1. Hi </h1>
+			   <h1>2. Hello </h1>
+			</div>
+		)
+	}
+}
+ReactDom.render(
+	<HelloWorld/>,			//React.createElement(HelloWorld,null)
+	document.getElementById('content')
+)
+
+*JSX에서 변수, 속성 출력( {} 사용)
+ 	//순수 JS에서는(ES6+) 백틱(`)과 ${varName}(템플릿 리터럴) 사용
+	// -> '문자열 내용 ${dateTimeNow}'
+
+-변수
+class DateTImeNow extends React.Component{
+	render(){
+		let dateTimeNow = new Date().toLocaleString()
+		return <span>Current date and time is {dateTimeNow}.</span>
+	}
+}
+
+-속성 
+...
+return <span> Hello {this.props.userName}, and date is {dateTimeNow} </span>
+
+-자바스크립트 표현식이나 기타 코드
+<p> ... {new Date(Date.now()).toLocaleTimeString()} </p>
+
+
+ex)
+let helloWorldReactElement = <h1>Hello world!</h1>
+class HelloWorld extends React.Component{
+	render(){
+		return(
+		   <div>
+		     {helloWorldReactElement}
+		     {helloWorldReactElement}
+		   </div>
+		)
+	}
+}
+
+
+-동적 속성 
+class ProfileLink extends React.Component{
+	render(){
+	  return <a href={this.props.url}
+		title={this.props.label}
+		target="_blank"> Profile
+	     </a>
+	}
+}
+
+-> <ProfileLink url='...' label='...' />
+
+*DOM을 DB로 사용 할 경우
+	// data-* 속성을 사용
+
+*컴포넌트에서 모든 속성 전달
+...
+return <h1 {...this.props}> Hello {this.props.frameworkName} world!! </h1>
+
+
+react: 리액트를 사용하려면 당연히 리액트 라이브러리가 필요하지 않겠는가?
+react-dom: 원래는 react에 함께 있었으나 이렇게 따로 떨어져 나왔다. react와 DOM 사이에 연결해주는 역할을 한다.
+react-scripts: 리액트 프로젝트 초기 셋업을 하는 것은 힘든 일이다. 그걸 보다 쉽고 간편하게 해준다.
+babel-cli: 바벨을 터미널에서 사용하기 위해 필요하다. 바벨을 왜 쓰는지는 위에서 설명했다.
+babel-preset-env: 바벨은 babel-preset-es2017과 같이 여러 버전이 있다. 딴거 말고 이거 깔면 알아서 해준다.
+babel-preset-react: 바벨을 리액트에서 사용하게 해준다. 우리는 리액트를 쓸거니까 이게 필요하다. 달리 말하면 바벨과 리액트는 별개 프로젝트다.
+webpack: 웹팩을 쓰기 위해 필요하다.
+babel-core: 웹팩용 바벨(?)이다. 터미널에서 쓸 때 babel-cli를 썼는데 이걸 웹팩에서 사용하는 용도다.
+babel-loader: 웹팩에서 바벨을 로드할 때 이 로더를 쓴다.
+
+render(){
+  let sessionFlag = this.props.user.session
+  return <div>
+	<a href={(sessionFlag)? '/logout' : '/login'}>
+	   {(sessionFlag)? 'logout' : 'login'}
+	</a>
+  </div>
+}
+
+*주석
+<... /* 주석 */ .../>
+or
+<...>   {/*  주석  */} </...>
+
+
+*CSS속성은 객체로 전달, 카멜표기법으로 작성
+background-image -> backgroundImage
+font-size -> fontSize
+font-family -> fontFamily
+ex)
+let font = { fontSize : '10px' }
+<span style={ font }> ... </span>
+또는
+<span style={{ fontSize : '10px' }}> ... </span>
+
+*class와 for속성은 자바스크립트와 ECMAScript의 예약어
+	-> className과 htmlFor을 대신 사용함
+ex)
+<input type='radio' name={this.props.name} id={this.props.id} />
+<label htmlFor={this.props.id}>
+	{this.props.label}
+</label>
+
+
+*불 속성값 사용
+disabled, required, checked, autofocus, readOnly 등 일부 속성은 폼 요소에서만 사용, {} 안에서만 사용
+ex) 
+<input disabled={false} />
+		// 생략 시 true
+
+
+
+
+
+
+★
+class Test extends React.Component {
+	constructor(props){
+		super(props)
+		this.state = { currentTime : (new Date()).toLocaleString('en')}
+	}
+}
+
+
+추후 에크마 버전에서
+class Test extends React.Component {
+	state = { ... }
+
+}
+
+★
+this.setState(data, callback)	// data를 state에 병합 -> render() 호출 -> callback
+	// 비동기
+
+class Test extends React.Component {
+	constructor(props){
+		super(props)
+		this.state = { currentTime : (new Date()).toLocaleString('en')}
+		this.c()
+	}
+	c(){
+		setInterval(()=>{
+			this.setState({
+				currentTime: (new Date()).toLocaleString('en')
+			})
+		}, 1000)
+	}
+	render(){ return ... }
+}
+
+
+★
+상태비저장 컴포넌트는 propTypes, defaultProps를 가질 수 있음
+function Link(props){ return ... }
+Link.propTypes = { ... }
+Link.defaultProps = { ... }
+
+상태비저장 컴포넌트는 엘리먼트 참조(refs)를 사용 할 수 없다
+	// React 컴포넌트로 감싸면 사용 가능
+
+
+상태비저장 --> 클래스 사용 비추천, 주로 람다로 생성
+	// 여기서 this는 window 객체를 가르킴
+ex)
+const Aa = function(props){
+	const fuc = t => (new Date(t)).toLocaleString()
+	return <div> { fuc(props.time) } </div>
+}
+
+
+
+
+★
+라이프사이클 이벤트를 기반으로 컴포넌트 동작 제어 -> 후킹
+	// 클래스에 메서드를 정의, 함수명과 일치해야 자동 실행됨
+마운팅 이벤트 : React 엘리먼트(컴포넌트의 인스턴스)를 DOM노드에 추가 시 발 생
+갱신 이벤트 : 속성, 상태가 변경되어 React 엘리먼트 갱신 시
+언마운팅 이벤트 : React 엘리먼트를 DOM에서 제거시 발생
+
+-순서
+ constructor()
+ 마운팅
+  componentWillMount()  : DOM에 삽입하기 전에 실행(렌더링 -> 실행 -> DOM에 추가) // 서버 렌더링 과정에서도 실행
+  componentDidMount()  :  DOM에 삽입되어 렌더링이 완료된 후 실행	// 프레임워크나 라이브러리 통합, XHR요청 등
+ 갱신(최초 렌더링 때 노실행)
+  componentWillReceiveProps(newProps)  :  컴포넌트가 속성을 받기 직전에 실행
+	// this.setState해도 추가렌더링 발생하지 않음
+  shouldComponentUpdate(newProps, newState)  :  컴포넌트가 갱신되는 조건을 정의해서 재렌더링을 최적화 -> 불 값 반환
+	// forceUpdate() 호출 때는 노 실행, false면 노렌더링 -> componentWillUpdate(), componentDidUpdate()도 노실행
+  ex)
+    shouldComponentUpdate(newProps, newState){
+    	return this.state.opacity !== + newProps.isVisible	// + 붙이면 숫자로 변환!
+    }
+  componentWillUpdate(newProps, newState)  :  컴포넌트가 갱신(렌더링)되기 직전에 실행
+  componentDidUpdate(prevProps, prevState)  :  컴포넌트가 갱신된 후에 실행
+ 언마운팅
+  componentWillUnmount()  :  DOM에서 제거하기 전에 실행(구독 이벤트 제거, 다른 정리작업)
+
++ componentDidCatch(error, errorInfo) { ... }
+
+
+ex)
+confirmLeave(e) {
+    let confirmationMessage = 'Do you really want to close?';
+    e.returnValue = confirmationMessage; // Gecko, Trident, Chrome 34+
+    return confirmationMessage; // Gecko, WebKit, Chrome <34
+  }
+componentDidMount() {
+    console.log('Attaching confirmLeave event listener for beforeunload');
+    window.addEventListener('beforeunload', this.confirmLeave);
+  }
+componentWillUnmount() {
+    console.log('Removing confirmLeave event listener for beforeunload');
+    window.removeEventListener('beforeunload', this.confirmLeave);
+  }
+
+★React DOM의 유틸리티 함수
+ReactDOM.findDOMNode()
+
+★이벤트 
+<button onClick={(function(event){
+	  console.log(this,event)
+	}).bind(this)}>
+	Save
+</button>
+	// 화살표함수, React.createClass() 를 사용 시 bind(this)안해도 됨
+
+handleSave(event) {
+  console.log(this, event);
+}
+render() {
+  return React.createElement(
+    "div",
+    null,
+    React.createElement(
+      "button",
+      { onClick: this.handleSave.bind(this) },
+      "Save"
+    )
+  );
+}
+
+같은 함수가 render에서 중복 될 경우 -> constructor에서 바인딩 해놓음
+	// 한 곳에 작성하므로 이방법 추천!
+constructor(props){
+    super(props)
+    this.handleSave = this.handleSave.bind(this)
+}
+...
+onClick = { this.handleSave } 
+...
+
+
+캡처 ->  타깃  ->  버블링
+캡처 : window에서 대상 요소까지
+타켓 : 대상 요소에 도착한 대상 단계
+버블링 : 대상요소에서 이벤트 캡처 후 상위요소로 이벤트 전파
+
+
+★합성 이벤트(SyntheticEvent)
+
+
+
+
+
+클래스 내에 
+static propTypes= {
+ title: PropTypes.string,
+ poster: PropTypes.string
+}
+
+
+willMount -> render -> didMount
+WillReceiveProps -> should -> WillUpdate -> render -> DidUpdate
+
+
+componentDidMount(){
+ this._getMovies();
+}
+_getMovies = async () => {
+ const movies = await this._callApi()
+ this.setState({
+  movies
+ })
+}
+	// 비동기로 실행
+
+
+
+import React, {Component, Fragment } from 'react'
+리턴 시 <div>로 안감싸고
+<Fragment> ~~ </Fragment> 로함
+
+컴포넌트 클래스의 렌더함수 리턴을 문자열로 가능
+
+*리액트 외부 렌더링
+react-dom에서 createPortal을 가져옴
+render return에서 createPortal( <넣을꺼/>, document.getElementById('외부');
+
+* componentDidCatch(err,info){ ... }
+
+*setState(null) -> state 업데이트 안함, 컴포너트 업데이트 안함
+
+
+
+*리액트 스토어 ( 리덕스 대체 )
+1. 스토어 파일 생성
+const Store = React.createContext(null);
+export default Store;
+
+2. 적용(store에 value로 state를 전달)
+<Store.Provider value={this.state}>
+ <App />
+</Store.Provider>
+
+3. 사용할 곳에서 Store 임포트 후 <Store.Consumer> 사용
+<Store.Consumer>
+ {store => JSON.stringify(store)}	
+</Store.Consumer>
+	// 무조건 함수가 와야함, store에 value값이 전달
+
+4. 함수와 state는 constructor(props){ ... } 안에다 넣음 , 클래스가 생성될때 provider가 값을 얻음
+ 함수도 state로 넣어서 한번에 provider의 value로 전달
+
+
+* import 시 패스생략
+create-react-app, create-react-app-ts
+.env파일에 NODE_PATH=src/ 
+
+
+Object.keys({1:{ ... }, 2 : { ... }})
+ --> ["1","2"]
+
+
+*setState에 함수사용 가능
+this.setState( currentState => {
+ const newState = delete currentState.notification[id]
+ return newState
+})
+
+
+
+****** styled-components
+import styled, { injectGlobal } from 'styled-components';
+
+injectGlobal`
+ body{
+  padding:0;
+  margin:0;
+ }
+`
+
+const Container = styled.div`
+ height: 100px;
+ width :100 px;
+`;
+
+const Button = styled.button`
+ &:active,
+ &:focus{
+  outline:none;
+ }
+ background-color : ${props => (props.danger ? "#e74c3c" : "2ecc71")};
+`
+
+const Anchor = Button.withComponent("a").extend`
+ text-decoration:none;
+`;
+
+-->
+<Container>
+ <Button danger />
+ <Anchor href="hptt://google.com"> Go to google </Anchor>
+</Container>

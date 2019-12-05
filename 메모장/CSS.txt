@@ -1,0 +1,651 @@
+★★★css적용 우선순위(캐스캐이딩 : 속성설정이 선택되는 순서)
+1. css에서 color : red !important;
+2. style="~:~" 
+3. id선택자 
+4. class선택자 
+5. 태그 
+
+동일 선택자 -> 나중에 쓰여진 것으로 설정됨
+
+* -> 아스터리스크
+
+prefix(접두어)
+-webkit- : 구글, 사파리 브라우저에 적용
+-moz- : 파이어폭스 브라우저에 적용
+-ms- : 익스플로러에 적용, 보통 생략합니다.
+-o- : 오페라 브라우저에 적용
+
+-webkit-	: 웹킷방식 브라우저(사파리,크롬...)
+-moz-		: 게코방식 브라우저(모질라,파이어폭스...)
+-o-		: 오페라 브라우저
+-ms-		: 마이크로소프트 인터넷 익스플로러
+
+href=#~~ // ~~는 다른링크의 id이름 
+
+
+link
+rel
+type
+href
+
+16px - 1em
+부모 요소의 px크기 = 자식 요소의 1em
+ex) 바디 10px -> div 2em -> div 20px이 된다
+text-indent:10px 	// 들여쓰기
+letter-spacing:10px 	// 글자간격
+line-height:10px	// 줄간격
+text-align: justify	// 글자가 양쪽을 균등히 배분
+
+background-image
+background-position
+background-repeat
+background-attachment:fixed; //스크롤고정
+background-size :auto;
+background-size :가로px 세로px;
+
+box-sizing: border-box;		//borderd 안쪽
+	// 원래 border크기 + width 크기인데
+	// 지정 시 width => border + 컨텐트크기 
+background-clip: border-box;	//테두리부분까지 적용
+
+linear-gradient(각도 또는 위치, color-stop(시작색), [color-stop,...]);
+위치 : to left(왼쪽으로), to bottom(아래로)
+각도 : 0deg(아래->위), 90deg(왼->오), 270deg(오->왼), 180deg(위->아래)
+
+font-weight
+border-width:
+border-top-width:
+border-top-left-radius:
+border-radius:50%;
+
+
+#test:before{
+ content:"TEST";
+ color:red;
+ font-size:30px;
+}
+
+#test:after{
+ content:"after;
+ color:blue;
+}
+
+*인라이방식은 width와 height값 무시함
+display: inline;
+display: block;
+display: none;	//영역도 없앰
+visibility:hidden;	// 영역은 남김
+box-shadow:5px 5px 5px black;
+
+.icon-edit { background-image: url("../img/glyphicons-halflings-white.png"); 
+background-position: -96px -72px; }
+
+static
+relatvie
+absolute
+fixed
+
+z-index:1;
+// 기본0, 높을수록 위로, 낮을수록 아래로
+overflow:hidden;
+float:left;
+clear:both;	// 앞선 float속성 제거
+
+colums: auto 3 ;	// 너비 자동 단 3개
+colum-rule: 1px solid black;
+
+https://codepen.io/vineethtr/full/XKKEgM 참고 
+transform: translate(x,y) or scale(x,y) or rotateX(45deg) or skew(xdeg, ydeg)
+transform-origin: left top; 	// 중점 변경
+
+transition-property:background-color;
+transition-duration:1s;
+transition-timing-fuction:linear or ease(천천 빨리 천천);
+transition-delay:0s;
+transition: all 1s linear;
+
+https://matthewlein.com/tools/ceaser
+CSS EASING ANIMATION TOOL
+
+animation-name:myani;
+animation-duration:3s;
+@keyframes myani{
+	0%{ ...}
+	100%{ ...}
+}
+animation-direction:alternate;	// 초기상태로
+animation-iteration-count:infinite;	// 반복
+
+animation:myani 3s ifinite alternate;
+
+
+
+
+#nav ul li:first-child a{
+	border-top-left-radius:8px;
+	border-top-right-radius:8px;
+}
+
+opacity:0;	//안보임, 불투명도
+
+
+div:nth-child(2){ ... }
+
+.menu > ul > li > ul::after {
+  content: '';
+  border: 6px solid transparent;
+  width: 0;
+  height: 0;
+  border-bottom-color: #ffffff;
+  position: absolute;
+  top: -12px;
+  left: 30px;
+}
+
+div#d1	//div중 id가 d1
+div #d1	// div내에서 id가 d1
+
+
+	text-align: justify; 	// 수평 정렬 
+        column-count: 4;	// (최대) 단 수 
+/*        column-width: 200px;*/  // 단 폭 길이 
+        column-gap:30px; 	// 단 간격
+        column-rule-style: solid;
+        column-rule-width: 5px;
+        column-rule-color: red;
+
+background-color:tomato;
+background-image:url('run.png');
+background-repeat: no-repeat;
+background-attachment:fixed;
+background-size : contain;
+background-position: center center; 
+
+background-blend-mode: soft-light;
+
+css filter -> 사진, 동영상 색상변경, 흑백, 반전 등
+https://bennettfeely.com/ 참고
+google -> css filters playground
+
+url("https://ilyashubin.github.io/FilterBlend/img/doge.png") center center / 413.931px no-repeat, url("https://ilyashubin.github.io/FilterBlend/img/nightsky.jpg") center center / 1020.11px no-repeat transparent
+
+
+
+
+유동형(fluid) 레이아웃 : 브라우저 너비가 바뀔 때마다 요소크기가 달라짐 (%로 지정)
+미디어쿼리 : 화면크기에 따라 레이아웃크기가 달라짐 
+
+*미디어쿼리
+@media screen and (max-width:960px) {
+	body{ background-color:green; }
+}
+
+@media all and (device-width:320px) and
+(device-height:480px) {...}
+
+@media all and (orientation:portrait){ ... }
+
+@media all and (aspect-ratio:16/9) { ... }
+
+
+<link href="css/~.css" rel="stylesheet" type="text/css" 
+	media="screen and (min-width:321px) and (max-width:768px)">
+or
+
+@import url("css/~.css") screen and (min-width:321px) and (max-width:768px);
+or
+
+style 태그의 media속성에 조건
+or
+
+style 태그내 
+@media screen and (max-width:320px){ ... }
+
+
+뷰포트 : 실제 내용이 표시되는 영역(모바일 기본 너비 980px)
+-> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	// 뷰포트의 가로너비 = 단말기 가로너비
+<meta charset="utf-8">
+===============================================================================
+
+.menu,
+
+.menu ul,
+
+.menu li,
+
+.menu a {
+
+	margin: 0;
+
+	padding: 0;
+
+	border: none;
+
+	outline: none;
+
+}
+
+ 
+
+/* Menu */
+
+.menu {	
+
+	height: 40px;
+
+	width: 505px;
+
+ 
+
+	background: #4c4e5a;
+
+	background: -webkit-linear-gradient(top, #4c4e5a 0%,#2c2d33 100%);
+
+	background: -moz-linear-gradient(top, #4c4e5a 0%,#2c2d33 100%);
+
+	background: -o-linear-gradient(top, #4c4e5a 0%,#2c2d33 100%);
+
+	background: -ms-linear-gradient(top, #4c4e5a 0%,#2c2d33 100%);
+
+	background: linear-gradient(top, #4c4e5a 0%,#2c2d33 100%);
+
+ 
+
+	-webkit-border-radius: 5px;
+
+	-moz-border-radius: 5px;
+
+	border-radius: 5px;
+
+}
+
+ 
+
+.menu li {
+
+	position: relative;
+
+	list-style: none;
+
+	float: left;
+
+	display: block;
+
+	height: 40px;
+
+}
+
+ 
+
+/* Links */
+
+ 
+
+.menu li a {
+
+	display: block;
+
+	padding: 0 14px;
+
+	margin: 6px 0;
+
+	line-height: 28px;
+
+	text-decoration: none;
+
+	
+
+	border-left: 1px solid #393942;
+
+	border-right: 1px solid #4f5058;
+
+ 
+
+	font-family: Helvetica, Arial, sans-serif;
+
+	font-weight: bold;
+
+	font-size: 13px;
+
+ 
+
+	color: #f3f3f3;
+
+	text-shadow: 1px 1px 1px rgba(0,0,0,.6);
+
+ 
+
+	-webkit-transition: color .2s ease-in-out;
+
+	-moz-transition: color .2s ease-in-out;
+
+	-o-transition: color .2s ease-in-out;
+
+	-ms-transition: color .2s ease-in-out;
+
+	transition: color .2s ease-in-out;
+
+}
+
+ 
+
+.menu li:first-child a { border-left: none; }
+
+.menu li:last-child a{ border-right: none; }
+
+ 
+
+.menu li:hover > a { color: #8fde62; }
+
+ 
+
+/* Sub Menu */
+
+ 
+
+.menu ul {
+
+	position: absolute;
+
+	top: 40px;
+
+	left: 0;
+
+ 
+
+	opacity: 0;
+
+	
+
+	background: #1f2024;
+
+ 
+
+	-webkit-border-radius: 0 0 5px 5px;
+
+	-moz-border-radius: 0 0 5px 5px;
+
+	border-radius: 0 0 5px 5px;
+
+ 
+
+	-webkit-transition: opacity .25s ease .1s;
+
+	-moz-transition: opacity .25s ease .1s;
+
+	-o-transition: opacity .25s ease .1s;
+
+	-ms-transition: opacity .25s ease .1s;
+
+	transition: opacity .25s ease .1s;
+
+}
+
+ 
+
+.menu li:hover > ul { opacity: 1; }
+
+ 
+
+.menu ul li {
+
+	height: 0;
+
+	overflow: hidden;
+
+	padding: 0;
+
+ 
+
+	-webkit-transition: height .25s ease .1s;
+
+	-moz-transition: height .25s ease .1s;
+
+	-o-transition: height .25s ease .1s;
+
+	-ms-transition: height .25s ease .1s;
+
+	transition: height .25s ease .1s;
+
+}
+
+ 
+
+.menu li:hover > ul li {
+
+	height: 36px;
+
+	overflow: visible;
+
+	padding: 0;
+
+}
+
+ 
+
+.menu ul li a {
+
+	width: 100px;
+
+	padding: 4px 0 4px 40px;
+
+	margin: 0;
+
+ 
+
+	border: none;
+
+	border-bottom: 1px solid #353539;
+
+}
+
+ 
+
+.menu ul li:last-child a { border: none; }
+
+ 
+
+/* Icons */
+
+ 
+
+.menu a.documents { background: url(./img/docs.png) no-repeat 6px bottom;}
+
+.menu a.messages { background: url(./img/bubble.png) no-repeat 6px center; }
+
+.menu a.signout { background: url(./img/arrow.png) no-repeat 6px center; }
+
+
+==============================================================================
+
+  /* display:inline;
+  float:left; */
+  display:inline-block;	// clear:left; 생략가능
+
+
+https://opentutorials.org/module/2367/13526 참고
+https://codepen.io/enxaneta/pen/adLPwv 참고
+
+  display:flex;		//인라인 정렬, 부모에서 지정
+  align-items: center;	// 수직, flex-start 시 아이템 크기대로 .. 
+  justify-content: space-around;	//수평, flex-start
+  flex-wrap:wrap;	// 부모 크기 오버시 아래 정렬
+
+  flex-grow:1;		// 해당 선택자 크기가 부모의 1/n   
+  flex-basis : 200px; 	// 해당 선택자 크기 200px 
+  flex-shrink:0;	// 화면 크기가 줄어도 변화없음
+ 
+  flex-direction:row-reverse;	// 인라인 왼쪽에서 거꾸로 정렬, 기본값: row
+  flex-direction:column-reverse;	// 블록 아래서 거꾸로 정렬
+
+
+경량화 : minify ( clean-css )
+
+
+아이콘 사이트 
+http://fontello.com/
+사용법 
+<link rel="stylesheet" href="css/fontello.css">
+<style>
+*{ font-family:"fontello";
+</style>
+
+demo.html에서의 코드를 입력 또는
+<i class="demo.html의 아이콘 이름"></i>
+
+
+
+svg아이콘 사이트
+https://thenounproject.com/
+
+
+*css 프레임워크
+부트스트랩(Bootstrap)
+파운데이션
+스켈레톤 : 가벼움
+
+플랫 디자인 : 입체효과 제거, 단순화
+머티리얼 디자인 : 가상 빛을 이용한 입체효과로 입체감부여
+
+*플렉스 박스 레이아웃 ( flexible box layout )
+*CSS Grid Layout : 표준화 진행중
+
+*패럴랙스 스크롤링 (parallax-scroll) : 스크롤 시 애니메이션 
+
+*풀 스크린 배경 : 동영상을 배경으로 사용 ( tubular: 유투브가능 )
+
+*캐러셀 : 슬라이드
+
+*타이포그래피 : 글자를 활용한 모든 디자인
+
+*웹 폰트 ( 구글 웹 폰트 )
+
+*벽돌쌓기 레이아웃
+http://gridstackjs.com/
+https://d2.naver.com/helloworld/6807203
+https://masonry.desandro.com/
+Justified 레이아웃
+
+
+
+
+
+
+<link href="style.css" rel="stylesheet" type="text/css">
+
+
+input[type=tel] 	속성 선택자
+아이디 : #
+클래스 : .
+h3~div			h3제외한 div까지(동위)
+h3+div			h3바로 아래 div(동위)
+li:hover		마우스 인식 
+ul > li			자손
+ul  li			후손
+input:focus
+input:enabled
+input:disabled
+ul li:nth-child(2n+1)	
+ul li:first-child, ul li:last-child
+
+ul li:first-of-type
+ul li:last-of-type
+
+#history2:first-letter
+#history2:first-line
+
+ #content p:first-child::selection {
+            background-color:blue;
+            color:yellow;
+        }  	// 드래그(선택) 시 
+
+ #content a {
+            text-decoration:none;
+        }	// 링크 시 디폴트 속성 노!
+
+ text-decoration:underline;   	// 밑줄
+
+ #content a::after {
+            content: ' - ' attr(href);
+        }	// a태그 뒤에 링크 어트리뷰트 더함
+
+
+<CCS 속성>
+ position:static	// 디폴트값,  top,left 등 무시
+ position:fixed;	//스크롤 이동 시에도 화면 고정
+ position:absolute;     //브라우저 좌상단 기준으로 위치좌표 고정 
+ z-index:번호;		//겹칠 때 높은 숫자가 위로
+ top:0;
+ left:0;
+
+body{ margin:0; }
+color
+font-weight		bold
+background
+background-color
+font-size		large, small, ~px, 2em
+font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+font-style:italic;
+
+border-width:5px;
+border-style:solid;		dashed;
+border-color:#ff6a00;
+border(경계선)		1px solid #808080, red
+
+border-radius:10px 10px 0 0;
+
+border-top:1px solid #cccccc;
+border-bottom:1px solid #cccccc;
+border-bottom:1px solid #cccccc;
+text-align		center
+text-align : left;
+list-style		none
+line-height:50px;
+
+display:block;		//블럭화
+display:inline;		//라인화?
+display:inline-block;	//라인 블럭화?
+display:none;		/없앰
+visibility:hidden;	// 투명화
+opacity:0.7;		// 투명도
+
+background-image:url('http://www.sba.seoul.kr/kr/images/index/visual16.jpg');
+background-size:100%		// 이미지 크기 변경됨
+background-repeat:no-repeat;
+background-attachment:fixed;	// 스크롤 이동 시에도 화면 고정 
+
+box-sizing:border-box;	//패딩 안쪽으로
+box-sizing:content-box;	// 패딩 밖으로(디폴트)
+
+overflow		hidden
+float			left
+
+clear			both
+
+width
+padding
+border-radius:10px 10px 0 0
+margin : 0 auto
+<a href="http://sba.seoul.kr" target="_blank">서울산업진흥원</a>
+
+*************************단일, 이중 콜론**********************
+단일 콜론, 예를 들면 :hover, :first-child 등은 해당 가상 선택자가 동적이거나 유동적이면서 어떤 요소의 전체에 영향을 줄 때 사용합니다.
+
+:hover는 어떤 요소에 마우스를 갖다댈 때만 작동하는 것이므로 동적이라 할 수 있고, 그 적용 범위는 
+해당 요소 전체에 영향을 끼칩니다.
+
+:first-child는 어떤 요소의 첫번째 자식요소를 가리키므로, 그 해당 요소가 첫번째 자식에 해당 될 것이냐 예외가 될것 이냐는 주변 요소의 상황에 영향을 받게 되므로 유​동적이라 할 수 있고, 영향을 받게 된다면 그 적용 범위는 해당요소 (자식요소) 전체가 될 것입니다.
+padding
+border-radius:10px 10px 0 0
+margin : 0 auto
+
+
+이중 콜론, 예를 들면 ::first-letter, ::before 등은 해당 가상 선택자가 정적이면서 어떤 요소의 일부분에 영향을 줄 때 사용합니다.
+
+::first-letter 는 어떤 요소의 첫글자(알파벳 하나)에 적용되므로 요소의 일부분에만 영향을 줍니다.
+
+::before 는 어떤 요소 내부의 앞에 컨텐트(글자나 그림)를 삽입할 때 사용하므로, 이것 역시 해당 요소의 일부분에만 영향을 받게 됩니다.
+*************************단일, 이중 콜론**********************
+

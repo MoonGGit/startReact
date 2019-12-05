@@ -1,0 +1,1656 @@
+console.group('before');
+~~
+console.groupEnd();
+
+
+엘리먼트 삭제
+element.parentNode.removeChild(element);
+
+식별자
+문서내에서 특정한 엘리먼트를 식별하기 위한 용도로 사용되는 API
+
+Element.classList
+		//.add('~')
+		//.remove('~')
+		//.toggle('~')
+Element.className
+	//.readOnly
+	//.rowSpan
+	//.colSpan
+	//.userMap
+	//.frameBorder
+	//.htmlFor
+	//.maxLength 
+Element.id
+Element.tagName
+
+조회
+엘리먼트의 하위 엘리먼트를 조회하는 API
+
+Element.getElementsByClassName
+Element.getElementsByTagName
+Element.querySelector
+Element.querySelectorAll
+
+속성
+엘리먼트의 속성을 알아내고 변경하는 API
+
+Element.getAttribute(name)
+Element.setAttribute(name, value)
+Element.hasAttribute(name);
+Element.removeAttribute(name);
+
+
+var li = document.createElement('li')
+var t = document.createTextNode('Str')
+li.appendChild(t)
+
+주요기능
+Node 객체의 주요한 임무는 아래와 같다.
+
+
+
+관계
+엘리먼트는 서로 부모, 자식, 혹은 형제자매 관계로 연결되어 있다. 각각의 Node가 다른 Node와 연결된 정보를 보여주는 API를 통해서 문서를 프로그래밍적으로 탐색할 수 있다.
+
+Node.childNodes
+Node.firstChild
+Node.lastChild
+Node.nextSibling	//다음 형제
+Node.previousSibling	// 전 형제
+Node.contains()
+Node.hasChildNodes()
+
+
+노드의 종류
+Node 객체는 모든 구성요소를 대표하는 객체이기 때문에 각각의 구성요소가 어떤 카테고리에 속하는 것인지를 알려주는 식별자를 제공한다.
+
+Node.nodeType	
+	// Node.ELEMENT_NODE -> 1
+Node.nodeName
+
+
+값
+Node 객체의 값을 제공하는 API
+
+Node.nodeValue
+Node.textContent
+
+
+자식관리
+Node 객체의 자식을 추가하는 방법에 대한 API
+
+Node.appendChild()
+	// insertBefore(요소, 대상)
+Node.removeChild()
+
+Node.replaceChild(요소, 대상)
+
+*jQuery 추가되는 법 
+before(형제)
+-------타겟 자식
+prepend
+[content]
+append
+-------
+after(형제)
+
+
+요소.outerHTML
+	// 자신(요소)을 포함한 HTML
+
+요소.insertAdjacentHTML('옵션',요소)
+		//Element
+		//Text
+옵션 : beforebegin, afterbegin, beforeend, afterend
+
+
+textNode.nodeValue
+textNode.data
+
+textNode.appendData(data);
+textNode.deleteData(시작인덱스, 갯수);
+textNode.insertData(시작인덱스, data);
+textNode.replaceData(시작, 갯수, data);
+textNode.substringData(시작, 갯수);
+
+window.pageYOffset
+window.scrollTo(가로,세로);
+window.innerWidth
+window.innerHeight
+screen.width
+screen.height
+
+
+Node.getBoundingClientRect()
+Node.offsetParent
+Node.clientWidth
+node.clientHeight
+
+event.stopPropagation()
+event.preventDefault()
+event.altKey
+event.ctrlKey
+event.shiftKey
+event.type
+
+
+var xhr = new XMLHttpRequest();
+xhr.open('GET','./~.html');
+xhr.onreadystatechange = function(){
+ if(xhr.readyState ===4 && xhr.status ===200) { console.log(xhr.responseText) }
+ }
+xhr.send();
+4 : 통신이 끝났음
+200 : 성공
+
+xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+xhr.send('data1=123&data2=456');
+
+
+-------------------es6
+const list1 = ['apple','orange']
+const list2 = [].concat(list1, 'banana');
+
+String.substring(시작, 끝)
+String.substr(시작, 길이)
+
+arr.splice(시작,길이)
+	// arr에서는 빠짐
+arr.slice(시작,끝)
+	// 안빠짐, 끝은 음수여도됨(끝은 -1)
+ 
+
+String.startsWith(str)
+String.endsWith(str)
+String.includes(str)
+
+func.apply(null, arr)
+--> null.func(arr)
+
+toString.call(list)
+--> list.toString()
+
+
+let mySet = new Set();
+	// 중복없이 유일값 저장 할 때, 
+mySet.add(str)
+if(mySet.has(str)) console.log('true')
+mySet.delete(str)
+mySet.forEach(function(v){
+  console.log(v)
+}
+
+new WeakSet()
+참조가 있는 값만 저장 가능(배열, 객체, 함수)
+
+let m =new Map()
+m.set(key,value)
+m.get(key)
+new WeakMap()
+
+
+
+function func(str, val1, val2){
+ console.log(str,val1,val2)
+ return '이 값이 result에 저장' + str[0] + val1 + val2
+}
+let result = func`test String ${1}${2} test String2`
+	// str -> ['test String', ' test String2']
+	// val1 -> 1
+	// val2 -> 2
+
+*함수 디폴트 파라미터 function sum(value, size=1){ ... }
+
+let arr = Array.prototype.slice.call(arguments)
+	// arr -> [ ... , ..., ]
+arr.every((v)=> true)
+	// arr의 수가 모두 true -> true 반환
+
+arguments -> 펼침 연산자
+function sum(...arr){
+ let result=0;
+ arr.forEach((v)=> result+=v)
+ return result
+}
+
+
+let obj = Object.assign(Object.create(myObj), {a:1, b:2})
+	// myObj로 생성 후 두번째 매개를 넣은 객체 복제
+
+Object.assign({}, {a:1,b:2}, {b:3, c:4})
+
+*create, assign 차이
+ create : 생성 후 대입
+ assign : 생성 시 매개로
+
+const newObj = Object.setPrototypeOf( 타켓, 추가 )
+	// 타겟에 추가, 타겟반환 (* 타겟의 __proto__로 추가)
+
+Object.prototype : 생성자 
+Object.__proto__ : 상위 객체의 생성자(prototype)
+
+*
+export default function a(){ ... }
+ --> import a from '~'
+
+*
+export function a(){...}
+ --> import {a}
+
+*export default const ~ 하면 에러
+ -> const ~
+ -> export default ~
+	// 나눠서 ㄱㄱ 
+
+* Reflect.get(target, property)
+	// target['property'] 반환
+(property in target) ? target[property] : "default value"
+
+
+target.previousElementSibling.textContent;
+
+
+*js에서 debugger; 사용시 콘솔에서 
+
+
+
+[].push()	// 뒤에 넣기
+[].pop()	// 뒤에서 뽑기
+[].shift()	// 앞에서 뽑기
+[].unshift()	// 앞에 넣기
+
+
+
+
+[1,2,3,4].join('-')
+	// "1-2-3-4"
+
+document.querySelector('h1').textContent = 'textContent'
+
+let arr = new Array(40)
+arr.fill(1)
+	// 배열 전체 1 대입(빈 매개 -> undefined)
+
+let arr = new Array(10).fill().map((v,i)=>i)
+	// empty는 순회가 안됨
+
+event.currentTarget // 이벤트를 단 타겟
+event.target	// 실제 타겟
+
+event.clientX
+event.clientY
+	// 마우스 좌표
+
+
+이벤트 contextmenu : 우클릭 시
+
+console.time('일치');
+console.timeEnd('일치');
+
+performance.now()
+new Date()
+	// 시간 체크 
+
+element.cloneNode(true)
+	// element를 내부까지(true) 복사
+
+event.code ->
+Space
+ArrowRight
+ArrowLeft
+ArrowDown
+ArrowUp
+
+
+call과 applly 차이
+	// call 메소드는 인자 하나 하나를, apply는 인자 리스트를 전달
+
+[1,2,3,4,5].keys()  --> 인덱스 반환 [0,1,2,3,4]
+
+[...[1,2,3,4,5].keys()].forEach(v=>{
+  console.log(v)
+})
+	// 펼침연산자는 keys() 다음 실행
+
+
+Object.create	자바스크립트에서 상속을 이용하기 위해서는 생성자 함수를 만든 뒤 프로토타입 체이닝을 이용해야 한다.
+Object.defineProperty	객체의 필드를 정의하는 함수
+Object.getPrototypeOf	인자로 넘어오는 객체의 프로토타입을 추출한다.
+Object.keys	인자로 넘어오는 객체의 키를 배열로 반환한다.
+Object.freeze	객체를 얼린다라는 표현, 즉 불변(immutable)으로 만든다.
+Object.getOwnPropertyNames	프로토타입 체이닝에 걸려있는 필드를 제외하고 객체가 직접 들고 있는 필드의 key를 배열형태로 반환한다.
+
+★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★JavaScript
+체인 불가
+개행 이어쓰기 할 때 \(역슬래쉬) 사용
+변수명 첫 글자 : $, _, 영문자
+
+*원시타입 : string, number, boolean, null, undefined, symbol(에크마 6에서 추가)
+*래퍼객체 : String, Number, Boolean, Symbol
+	// 원시 -> 임시 래퍼객체는 참조가 끝나면 객체의 기능 소멸
+*내장객체 : String, Date, Array, Math, RegExp(Regular Expressions), Function, Object
+
+*내장 함수
+encodeURI("...")	// 영문,숫자,일부기호제외, 문자를 유니코드값으로 인코딩
+encodeURIComponent("...") 	// 영문,숫자제외, 문자를 유니코드로
+decodeURI("...")	
+decodeURIComponent("...")
+parseInt(String[, nBase])	// 정수로 변경, nBase는 몇진수? 8진수 -> 8,  ex) 5.12 -> 5, 15px -> 15
+parseFloat("...")
+String(값)	// 5 -> "5"
+Number("...")	// "5" -> 5
+Boolean(값)	// 5 -> true, null -> false
+eval("...")	// 전달 문자열을 자바스크립트 문장으로 인식하여 처리
+isFinite(...);	//유한수인가?
+isNaN(...);	//숫자가 아닌가?
+var str = String(123);		// "123"
+var num = Number("123");	// 123
+var num = parseInt("123");	// 123
+document.write(typeof str);	// str의 자료형을 보여줌
+escape()	// 16진수 아스키코드로 변경
+unescape()	// ISO-Latin-1로 변경
+call()		// 함수.call(...) -> 함수기능을 사용하여 매개이용(this같은게 매개를 가르키게됨)
+apply()		// Math.max.apply(null,[3,4,5]); -> 배열로 이용( 배열메소드에는 max()가 없어서 이렇게 이용)
+
+
+**브라우저 객체 (BOM)
+window
+ document	// DOM객체
+ frames[]	// iframe 요소들 반환
+ history	//back(), forward(), length
+ location
+ navigator
+ screen
+
+-window
+1. 전역변수는 윈도우 객체의 속성
+2. 전역함수는 윈도우 객체의 메서드
+윈도우 객체의 변수생성으로 전역 생성가능
+
+속성
+closed
+innerHeight
+innerWidth
+length
+name
+outerHeight
+outerWidth
+parent
+screenLeft
+screenTop
+screenX
+screenY
+top
+
+메서드
+alert
+blur	// 포커스 제거
+clearInterval
+clearTimeout
+close
+confirm
+focus
+moveBy		//현재기준으로
+moveTo(x,y)
+open("URL", "새 창 이름", "새 창 옵션")
+	옵션 ex) "width=350, height=350, location=no, scrollbars=no"
+prompt
+resizeBy	// 현재 기준으로
+resizeTo(x,y)
+setInterval
+clearInterval
+setTimeout
+clearTimeout
+stop
+
+-location객체의 속성, 메소드
+href
+hash	// #에 명시된 값
+host, hostname, protocol
+search	// 쿼리(요청값) 반환
+reload()
+
+-navigator
+속성
+cookieEnabled
+appName		// 브라우저 이름 ex) Netscape
+appCodeName	// 브라우저 코드명 ex)Mozilla
+product
+appVersion
+userAgent
+platform
+language
+online		// 온라인 상태여부
+메서드
+javaEnabled()
+
+-history객체의 속성, 메소드
+back()
+forward()
+go(숫자)	// ex) -2면 2단계 이전 사이트 이동
+length		// 방문기록 개수
+
+-screen의 속성
+width		// 화면 너비값
+height
+availWidth
+availHeight	// 작업 표시줄을 제외한 화면 높잇값
+colorDepth	// 모니터가 표현 가능한 컬러 bit
+
+
+**문서객체 (DOM)
+document
+ forms[]
+ anchors[]
+ layers[]
+ images[]
+
+
+document 메서드
+-element선택
+getElementById(...)
+getElementsByTagName(...)	// HTMLCollection(인덱스접근이지만 배열이 아님)로 반환
+getElementsByClassName(...)	// NodeList 반환
+querySelector()
+querySelectorAll()
+
+-element 요소변경
+innerHTML = ...;
+attribute = ...;
+setAttribute(attr, value);
+style.property = ...;
+
+
+-요소 추가, 삭제
+document.createElement("p")
+	createTextNode("...")	-> "..."
+	removeChild(...)
+	appendChild(...)	//마지막 삽입 
+	replaceChild(새것, 대상)
+	write(...)	
+element.appendChild();
+부모요소.insertBefore(넣을요소,기준요소(부모바로아래자식));
+
+ex)
+var list = document.getElementById("list");
+var x = list.removeChild(list.childNodes[0]);
+
+var item = document.getElementById("list");
+item.parentNode.removeChild(item);
+
+*HTML객체 찾기  263P
+document.body  ->  <body>
+document.cookie  ->  document의 쿠키 반환
+document.images  ->  모든 <img>
+document.lastModified  ->  갱신 날짜와 시간
+
+*시계 시간 설정!
+최초 시간을 서버에서 받아오고 
+var now = new Date(받아온 시간);
+1초마다 setInterval안에서
+now.setSeconds(now.getSeconds()+1);
+
+*클래스 추가 삭제
+element.classList.add( 'someclass' );
+element.classList.add( 'someclass1', 'someclass2' );
+element.classList.remove( 'someclass' );
+element.classList.remove( 'someclass1', 'someclass2' );
+element.classList.contains( 'someclass' );
+element.classList.contains( 'someclass1', 'someclass2' );
+element.classList.toggle( 'someclass' );
+
+
+*이벤트
+onload, onunload -> 페이지를 열거나 닫을 때 발생
+onchange -> 요소의 값이 바뀌면 발생	// 입력폼에서는 요소.value로 가져옴
+element.addEventListener('keyup',function(){..});	`//하나씩밖에 등록안됨
+object.removeEventListener("event", func);	// 해당이벤트에 동일 함수를 줘야함 
+
+태그의 속성으로 등록 -> onclick="func()"
+스크립트로 등록 -> object.onclick = func(){ ... };
+리스너로 등록 -> object.addEventListener("click",func(), useCapture);	//같은 이벤트에 중복가능
+	//3번째 인자는 이벤트 버블링, 이벤트 캡쳐를 true? false?
+
+*DOM 노드(요소) 탐색
+element.firstChild.nodeValue; 		// 태그로 노드를 나눔
+element.childNodes[0].nodeValue;	// 태그로 노드를 나눔
+	ex) .1..< .. /> .2..  ->  [".1..", "<.. />", ".2.."] 
+
+document.body 	// 문서 본문
+document.documentElement	// 문서 전체
+
+document.forms -> form컬렉션
+formObject.elements
+
+document.form이름.input이름.value
+document.form이름.reset()
+document.form이름.submit()
+
+document.myForm.action="URL경로";
+document.myForm.method="post";
+document.myForm.submit();
+	//버튼으로 post&파라미터 보내자 -> input type="hidden" 또는 버튼태그에 value로 넘김
+
+document.form_name.input_name.value="값";
+
+★★★★★★★★내장객체 메서드
+
+*Array객체의 메소드
+slice
+join	// 하나의 문자열로, 구분자 매개로 줘도댐
+concat	// 두 배열을 결합
+toString
+splice	// 지정된 배열값을 추가 또는 삭제, (start index, delete conunt, 추가할 요소, 추가할 요소,...) 
+	start부터 count만큼 지우고 추가, 지운배열 리턴
+shift	// 배렷 첫 요소 삭제
+unshift	// 배열 첫 요소에 추가
+pop	// 배열 마지막요소 삭제
+push	// 배열 마지막요소에 추가
+reverse
+indexOf	// 없으면 -1
+sort
+arr.sort(function(a, b){
+	return a-b;});	// 오름차순 정렬
+arr.sort(function(a, b){
+	return 0.5 - Math.random()});	// 랜덤 배치
+객체의 속성과 메서드는 delete 연산자로 삭제가능
+ex) delete myCar.color;		// 인덱스 요소는 그대로, 값만 undefined
+
+*String객체의 메소드
+charAt(n)
+concat("문자열")
+indexOf("문자",n)	// n이 주어지면 인덱스n부터 검색
+lastIndexOf("문자")	// 끝부터 검색
+charCodeAt(n)
+match("문자열")		// 없으면 null
+replace("문자1","문자2")	// 원본은 그대로, 새문자열을 반환
+	// (/java/g, "javaScript")  ->  일치한 모든 문자열을 변경, i는 대소문자 구분안하도록
+search('문자')
+slice(n,m)	// (7,13) -> 인덱스 7부터 12까지, (-12,-6) -> 끝에서 12번째부터 끝에서 6번째까지
+split('separator')	// separator로 나누어 문자열배열 리턴
+substring(n,m)		// (7,13) -> 인덱스 7부터 인덱스 12까지
+substr(n,m)		// (7,6) -> 인덱스 7부터 6개 문자열
+toLowerCase()
+toUpperCase()
+toString()
+valueOf()
+
+*Date객체 분홍책 178P참고
+
+*정규 표현식(RegExp) 객체
+var 변수 = /패턴/플래그;		// i:대소문자 구별않함, g: 전체문자열(발견시 중지)
+var 변수 = new RegExp("패턴", "플래그");
+-메소드 
+search()	->  str.search(/java/i); // 찾은 인덱스 반환
+replace()	->  str.replace(/java/i,"HTML5");
+test()		->  regPtn.test(str);	//true or false
+exec()		->  regPtn.exec(str);	// 일치 문자열 반환
+match()		->  str.match(regPtn);	// 일치 문자열 반환(여러개면 배열로)
+
+\w -> 모든문자
+\W -> 대소문자,숫자 _를 제외한 모든 문자
+\d -> 숫자
+\D -> 숫자를 제외한 모든 문자
+\s -> 공백문자(공백, 탭, 줄바꿈 등)
+\S -> 공백문자를 제외한 모든 문자
+p{n} -> p가 n개인 문자열
+n+ -> 적어도 n개 이상, // ?? n개의 문자열을 찾음
+n* -> 0개이상, //?? n개가 포함된 문자열을 찾음
+n? -> n이 0또는 1회있는 문자열
+[0-9] -> 0~9중의 하나
+[a-z] -> a~z중 하나
+[qwer] -> 네 문자중 하나
+(qwer) -> "qwer"
+* -> 0개 이상
++ -> 1개 이상
+? -> 0개 or 1개
+{m, n} -> m회 이상 n회 이하
+
+
+★★★★★★★★
+
+암묵적 전역 변수
+x = 1;
+console.log(x); // 1
+변수 선언 시 var 키워드를 생략할 수 있다. 이때 변수는 전역 변수가 된다. 
+이러한 변수를 암묵적 전역 변수(implicit global)라 한다..
+
+1 + undefined // NaN (undefined → NaN)
+
+false로 평가되는 Falsy 값이다.
+false
+undefined
+null
+0, -0
+NaN
+’’ (빈문자열)
+
+'Cat' && 'Dog' // 'Dog'
+'Cat' || 'Dog' // 'Cat'
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  // start ...
+})
+
+* 즉시 실행 함수
+	// 최초 한번만 호출 -> 초기화
+(function () {
+  // ...
+}());
+
+(function () {
+  // ...
+})();
+
+
+*클로저  : 전역변수, 지역변수  ->  로컬변수?
+	// 중첩함수 -> 내부 함수가 외부함수의 환경을 기억
+var add = (function(){ var counter = 0; 
+	return function() {return counter += 1;}
+	})();
+
+var str = a || b;	// a의 값이 없으면(false) -> b 
+
+var arr = ["1", 2, false];
+var friends = new Array();
+friends[0] = "이름0";
+friends[1] = "이름1";
+var fruits = new Array("att1","att2");
+var array01 = [ [1,2,3], [4,5,6] ];	//2차원배열
+array01[0][1]	-> 2
+
+숫자가 0 또는 NaN -> false
+문자가 빈문자 -> false
+1 + undefined -> NaN
+
+document.createElement('section');
+->
+HTML5Shiv.js	-> HTML5 크로스브라우징 해주는넘
+	//cross platform : 여러 종류의 플랫폼에서 동작가능
+t.setAttribute('href','http://naver.com');
+t.style.color='red';
+t.style.backgroundColor="red";
+document.querySelector(' ... ').addEventListener('click',function(){...});
+var x = document.getElementById("input_id").value;
+
+var result = confirm("ok?");		// true or false
+location.reload();
+window.location.href="사이트URL"	// 뒤로가기 가능
+location.replace('사이트URL');		// 뒤로가기 불가(덮어씌움)
+
+-name 프로퍼티
+// 기명 함수 표현식(named function expression)
+var namedFunc = function multiply(a, b) {
+  return a * b;
+};
+// 익명 함수 표현식(anonymous function expression)
+var anonymousFunc = function(a, b) {
+  return a * b;
+};
+
+console.log(namedFunc.name);     // multiply
+console.log(anonymousFunc.name); // 
+
+function 함수명(){
+	arguments[i];	// 매개변수 없이 매개받기
+}
+함수명(데이터1,데이터2,데이터3);	// arguments에 배열로 저장
+
+function sum() {
+  if (!arguments.length) return 0;
+
+  // arguments 객체를 배열로 변환
+  var array = Array.prototype.slice.call(arguments);
+  return array.reduce(function (pre, cur) {
+    return pre + cur;
+  });
+}
+
+// ES6
+// function sum(...args) {
+//   if (!args.length) return 0;
+//   return args.reduce((pre, cur) => pre + cur);
+// }
+
+function foo() {}
+console.log(foo.length); // 0, 매개변수 갯수
+
+
+var t = new Object();
+t['att1']="attr1";
+t['att2']="attr2";
+
+for(var i in array){
+            console.log(array[i].name+'/'+array[i].link);
+        }		// 배열인 경우 인덱스로 이용한다...
+for(var attr in obj){ ... }	// 객체일 경우 속성명으로 사용 
+
+*객체 생성자
+function 함수명(매개 ..){
+	this.속성명 = 값;
+	// this.함수 = function(){...}	프로토타입으로 자원활용
+}
+함수명.prototype.함수 = function(){ this.속성명 ... }	// 공용함수 등록
+var 참조변수 = 함수명;
+--> var 참조변수 = { 속성명:값, 함수: function(){..} }
+
+*프로토타입 // 모든 객체는 프로토타입에서 속성과 메서드를 상속받음
+ -> 생성자 외부에 메서드를 정의 
+객체명.prototype.메서드or 변수 = function() {... } or 값;
+ -> 메서드만 공유
+
+-링크 : 프로토타입 객체 멤버에 접근 가능( 상속 기능 구현)
+classical방식 - new사용
+ex) 
+function Car(m){ this.model = m || "Benz"; }
+function childCar(Model){}
+childCar.prototype = new Car();
+var myCar = new childCar("BMW");
+
+prototypical방식 - 리터럴객체와 Object.create()사용 , 선호됨
+ '부모객체' 생성 -> var 자식객체 = Object.create('부모객체');
+		자식객체.변수 or 메서드 추가
+
+*try - catch
+ catch(err)
+  err.message;
+
+ throw "strrr";	// console.log(err) -> strrr
+
+error객체의 속성
+name
+ 값-의미
+ RangeError - 범위를 벗어난 숫자
+ ReferenceError - 잘못된 참조
+ SyntaxError - 구문 오류
+ TypeError - 형식 오류
+ URIError - encode URI()의 오류
+message
+
+*HTML5 제약 조건검증
+input태그 속성에 max, min, maxlength 등 ..
+->  태그요소.checkValidity()	-> true or false
+
+
+*async
+웹페이지 파싱과 외부 스크립트 파일의 다운로드가 동시에 진행된다. 
+스크립트는 다운로드 완료 직후 실행된다. IE9 이하 버전은 지원하지 않는다.
+
+*defer
+웹페이지 파싱과 외부 스크립트 파일의 다운로드가 동시에 진행된다.
+ 스크립트는 웹페이지 파싱 완료 직후 실행된다. 
+IE9 이하 버전에서 정상적으로 동작하지 않을 수 있다.
+ex)
+<script async src="extern.js"></script>
+<script defer src="extern.js"></script>
+
+
+ symbol
+심볼은 주로 이름의 충돌 위험이 없는 유일한 객체의 프로퍼티 키(property key)를 만들기 위해 사용한다. 
+심볼은 Symbol 함수를 호출해 생성한다. 이때 생성된 심볼 값은 다른 심볼 값들과 다른 유일한 심볼 값이다
+// 심볼 key는 이름의 충돌 위험이 없는 유일한 객체의 프로퍼티 키
+var key = Symbol('key');
+console.log(typeof key); // symbol
+var obj = {};
+obj[key] = 'value';
+console.log(obj[key]); // value
+
+
+*js파일 용량 표시
+window.onload = function(){
+	document.getElementById("dd").addEventListener('change',function(e){
+		var p = document.createElement('p');
+		p.innerHTML="용량 : " + (document.getElementById("dd").files[0].size)+"바이트 입니닷 ㅎㅎ ";
+					// 파일 속성 -> name, size, type
+		document.body.appendChild(p);
+	});
+};
+
+
+$("A + B")	-> A의 다음형제 B (바로다음형제 하나만)
+$("A ~ B")	-> A의 다음부터 형제인 B모두 선택
+$("요소:first") -> 요소 중 처음째 선택(하나만)
+$("요소:first-child") -> "요소:내가첫째인가?" - 부모기준 첫째만(첫째 해당안되면 선택X) (여러개)
+$("요소:first-of-type")	-> 처음째 자식들 모두
+$("요소:nth-child(n)")	-> 모든 요소중 n번째마다
+$("요소:nth-of-type(n)")  -> 부모요소기준으로 n번째인 요소모두
+$("요소:even")	-> 짝수인덱스
+$("요소:odd")	-> 홀수인덱스
+$("요소:only-child") 	->  부모기준 요소 하나만 자식인것만 하나선택
+$("요소:only-of-type")	->  부모기준 요소 하나만 자식인것 모두선택
+$("요소:eq(n)")	->  인덱스 n 요소
+$("요소:gt(n)")	->  인덱스 n보다 큰 인덱스를 가진 요소들
+$("요소:lt(n)") ->  인덱스 n보다 작은 인덱스를 가진 요소들
+$("요소:not(n)")  -> 인덱스 n를 제외한 모든 요소
+$("[attr]")	-> attr를 가진 요소
+$("[attr|=val]")  ->  attr이 val이거나 val-을 포함해야함
+$("[attr=val]")
+$("[attr~=val]")	-> attr이 val인 요소 모두 (~없어도 되지않낭.)
+$("[attr*=val]")	-> 단어 val를 포함하는 attr를 가진 모든 요소
+
+$("요소:enabled")
+$("요소:disabled")
+$("요소:selected")
+$("요소:checked")
+$("요소:animated")
+$("요소:focus")
+$("요소:contains(txt)")	-> 지정 문자열을 포함하는 요소
+$("요소:has(p, span)")	-> 지정된 요소중 하나 이상을 가진 가진 요소
+$("요소:empty")		-> 하위요소,텍스트 없는 요소
+$("요소:hidden")
+$("요소:visible")
+
+★
+콘솔에서 $0  하면 element선택요소 선택됨
+콘솔에서 -> getEventListeners($0)  -> 해당 DOM의 이벤트객체 반환
+	// React는 document에 리스너 연결함 -> 좀더 빠름
+document.removeEventListener('mouseover', getEventListeners(document).mouseover[0].listener, false)
+
+★
+ fetch(this.props['data-url']).then(response => response.json()).then(users => this.setState({ users: users })).catch( ..?;
+	// Fetch API는 promise를 이용해 XHR요청을 보낼 수 있는 통일 방식
+	// 기능을 지원하지 않는다면 폴리필을 사용하거나 Ajax ㄱㄱ 
+
+
+
+★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ES5
+ES5(2009) - IE9부터 본격적인 지원을, es5-shim을 사용하면 하위 버전에서도 특정 기능들을 지원
+forEach, map, filter, reduce, some, every와 같은 순환 메소드
+
+ - 주요 함수
+Object.create	-  자바스크립트에서 상속을 이용하기 위해서는 생성자 함수를 만든 뒤 프로토타입 체이닝을 이용해야 한다.
+Object.defineProperty	-  객체의 필드를 정의하는 함수
+Object.getPrototypeOf	-  인자로 넘어오는 객체의 프로토타입을 추출한다.
+Object.keys	-  인자로 넘어오는 객체의 키를 배열로 반환한다.
+Object.freeze	-  객체를 얼린다라는 표현, 즉 불변(immutable)으로 만든다.
+Object.getOwnPropertyNames	-  프로토타입 체이닝에 걸려있는 필드를 제외하고 객체가 직접 들고 있는 필드의 key를 배열형태로 반환한다.
+
+
+★Object.freeze
+Object.freeze()를 사용하여 불변(immutable) 객체로 만들수 있다.
+Object.freeze(user1);
+user1.name = 'Kim'; // 무시된다!
+console.log(user1); // { name: 'Lee', address: { city: 'Seoul' } }
+console.log(Object.isFrozen(user1)); // tru
+
+하지만 객체 내부의 객체(Nested Object)는 변경가능하다.
+const user = {
+  name: 'Lee',
+  address: {
+    city: 'Seoul'
+  }
+};
+Object.freeze(user);
+user.address.city = 'Busan'; // 변경된다!
+console.log(user); // { name: 'Lee', address: { city: 'Busan' } }
+
+
+-->내부 객체까지 변경 불가능하게 만들려면 Deep freeze를 하여야 한다.
+function deepFreeze(obj) {
+  const props = Object.getOwnPropertyNames(obj);
+
+  props.forEach((name) => {
+    const prop = obj[name];
+    if(typeof prop === 'object' && prop !== null) {
+      deepFreeze(prop);
+    }
+  });
+  return Object.freeze(obj);
+}
+
+const user = {
+  name: 'Lee',
+  address: {
+    city: 'Seoul'
+  }
+};
+
+deepFreeze(user);
+user.name = 'Kim';           // 무시된다
+user.address.city = 'Busan'; // 무시된다
+console.log(user); // { name: 'Lee', address: { city: 'Seoul' } }
+
+Object.assign과 Object.freeze을 사용하여 불변 객체를 만드는 방법은 
+번거러울 뿐더러 성능상 이슈가 있어서 큰 객체에는 사용하지 않는 것이 좋다.
+또 다른 대안으로 Facebook이 제공하는 Immutable.js를 사용하는 방법이 있다.
+
+★Object.keys(obj)
+	// 반환 : 지정된 개체의 모든 나열형 속성들을 나타내는 문자열 배열
+var arr = ['a', 'b', 'c'];
+console.log(Object.keys(arr)); // console: ['0', '1', '2']
+
+var obj = { 0: 'a', 1: 'b', 2: 'c' };
+console.log(Object.keys(obj)); // console: ['0', '1', '2']
+
+var anObj = { 100: 'a', 2: 'b', 7: 'c' };
+console.log(Object.keys(anObj)); // ['2', '7', '100']
+
+// getFoo is property which isn't enumerable
+var myObj = Object.create({}, {
+  getFoo: {
+    value: function () { return this.foo; }
+  } 
+});
+myObj.foo = 1;
+console.log(Object.keys(myObj)); // console: ['foo']
+
+
+★fun.call(thisArg[, arg1[, arg2[, ...]]])
+	//   this 객체가 기존 함수를 호출할 때 할당될 수 있습니다
+- 객체의 생성자 연결에 call 사용
+function Product(name, price) {
+  this.name = name;
+  this.price = price;
+
+  if (price < 0) {
+    throw RangeError('Cannot create product ' +
+                      this.name + ' with a negative price');
+  }
+}
+
+function Food(name, price) {
+  Product.call(this, name, price);
+  this.category = 'food';
+}
+
+
+- 익명 함수 호출에 call 사용
+var animals = [
+  { species: 'Lion', name: 'King' },
+  { species: 'Whale', name: 'Fail' }
+];
+
+for (var i = 0; i < animals.length; i++) {
+  (function(i) {
+    this.print = function() {
+      console.log('#' + i + ' ' + this.species
+                  + ': ' + this.name);
+    }
+    this.print();
+  }).call(animals[i], i);
+}
+
+
+-함수 호출 및 'this'를 위한 문맥 지정에 call 사용
+function greet() {
+  var reply = [this.animal, 'typically sleep between', this.sleepDuration].join(' ');
+  console.log(reply);
+}
+
+var obj = {
+  animal: 'cats', sleepDuration: '12 and 16 hours'
+};
+
+greet.call(obj);  // cats typically sleep between 12 and 16 hours
+
+- 인수 지정 없이 함수 호출에 call
+
+var sData = 'Wisen';            
+function display(){
+  console.log('sData value is %s ', this.sData);
+	//첫번째 인자를 전달하지 않으면, this의 값은 전역 객체에 바인딩됩니다
+}
+
+display.call();  // sData value is Wisen
+
+★Object.defineProperty(obj, prop, descriptor)
+	//객체에 직접 새로운 속성을 정의하거나 이미 존재하는 속성을 수정한 후 그 객체를 반환합니다.
+ex)
+const object1 = {};
+Object.defineProperty(object1, 'property1', {
+
+  value: 42,
+
+  writable: false
+});object1.property1 = 77;
+// throws an error in strict mode
+
+
+console.log(object1.property1);
+// expected output: 42
+
+
+// __proto__ 사용
+var obj = {};
+var descriptor = Object.create(null); // 상속받은 속성 없음
+// 기본으로 열거 불가, 설정 불가, 변경 불가
+descriptor.value = 'static';
+Object.defineProperty(obj, 'key', descriptor);
+
+// 명시적
+Object.defineProperty(obj, 'key', {
+  enumerable: false,		// for...in 루프나 Object.keys() 에서 노출될지 말지
+  configurable: false,
+  writable: false,
+  value: 'static'
+});	// delete o.p; -> false
+
+// 같은 객체를 재활용하기
+function withValue(value) {
+  var d = withValue.d || (
+    withValue.d = {
+      enumerable: false,
+      writable: false,
+      configurable: false,
+      value: null
+    }
+  );
+  d.value = value;
+  return d;
+}
+Object.defineProperty(obj, 'key', withValue('static'));
+
+// Object.freeze가 존재하면
+// 속성의 추가/제거 방지
+// (value, get, set, enumerable, writable, configurable)  
+(Object.freeze || Object)(Object.prototype);
+
+
+var o = {}; // 새로운 객체를 생성한다.
+
+// 데이터 속성기술로 defineProperty를 이용해 속성을 추가한다
+Object.defineProperty(o, 'a', {
+  value: 37,
+  writable: true,
+  enumerable: true,
+  configurable: true
+});
+// 'a'속성이 o 객체에 존재하고 값은 37이다
+
+// 데이터 접근기술로 defineProperty를 이용해 속성을 추가한다
+var bValue = 38;
+Object.defineProperty(o, 'b', {
+  get: function() { return bValue; },
+  set: function(newValue) { bValue = newValue; },
+  enumerable: true,
+  configurable: true
+});
+o.b; // 38
+
+★Object.create(proto[, propertiesObject])	// 두번째 매개로 defineProperty형식같은 
+			//// 기본으로 writable, enumerable 또는 configurable 속성은 false:
+var o;
+
+// 프로토타입이 null인 객체 생성
+o = Object.create(null);
+
+
+o = {};
+// 위는 아래와 같습니다:
+o = Object.create(Object.prototype);
+
+-----
+// Shape - 상위클래스
+function Shape() {
+  this.x = 0;
+  this.y = 0;
+}
+
+// 상위클래스 메서드
+Shape.prototype.move = function(x, y) {
+  this.x += x;
+  this.y += y;
+  console.info('Shape moved.');
+};
+
+// Rectangle - 하위클래스
+function Rectangle() {
+  Shape.call(this); // super 생성자 호출.
+}
+
+// 하위클래스는 상위클래스를 확장
+Rectangle.prototype = Object.create(Shape.prototype);	// Shape.prototype에 정의된 함수 사용위함(move)
+Rectangle.prototype.constructor = Rectangle;
+
+var rect = new Rectangle();
+
+console.log('Is rect an instance of Rectangle?', rect instanceof Rectangle); // true
+console.log('Is rect an instance of Shape?', rect instanceof Shape); // true
+rect.move(1, 1); // Outputs, 'Shape moved.'
+
+-여러 객체에서 상속하고 싶은 경우엔 mixin
+
+function MyClass() {
+  SuperClass.call(this);
+  OtherSuperClass.call(this);
+}
+
+MyClass.prototype = Object.create(SuperClass.prototype); // 상속
+mixin(MyClass.prototype, OtherSuperClass.prototype); // mixin
+	// mixin 같은 함수의 예는 jQuery.extend()
+MyClass.prototype.myMethod = function() {
+  // 기능 수행
+};
+
+
+★strict 모드 - 에러가 나지 않고 미연에 방지하고자 코드를 섬세하게 체크
+<-> "느슨한 모드(sloppy mode)"
+
+1. 기존에는 조용히 무시되던 에러들을 throwing합니다.
+2. JavaScript 엔진의 최적화 작업을 어렵게 만드는 실수들을 바로잡습니다. 가끔씩 엄격 모드의 코드는 비-엄격 모드의 동일한 코드보다 더 빨리 작동하도록 만들어집니다.
+3. 엄격 모드는 ECMAScript의 차기 버전들에서 정의 될 문법을 금지합니다.
+{} 괄호로 묶여진 블럭문에는 적용되지 않습니다
+ex)
+"use strict"; or 'use strict';
+
+function strict() {
+    // 모듈이기때문에 기본적으로 엄격합니다
+}
+export default strict;
+
+
+
+
+
+★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ES6
+ES6 === ES2015
+
+var a = 0o10; // ES6: 8진수
+
+*block scope
+-> 반응형으로 콜백함수로 변수를 참조하도록 할 시 참조 할 당시의 환경(변수)을 저장해야함
+var i;
+for (i = 0; i < 10; i++) {
+  (function(j) {		// 클로저
+    setTimeout(function() {
+      console.log(j);
+    }, 100);
+  })(i);
+}
+//메모리를 위해 참조를 없애서 메모리를 release시켜야함
+
+또는 
+var 키워드 대신 let 키워드로 바꿔줌
+var li = document.querySelectorAll("li");
+for(let i=0; i<li.length; i++){
+  li[i].addEventListener("click",function(){
+    console.log(i+"번째 클릭");
+  })
+}
+
+★Object.assign
+(IE지원 X)
+Object.assign(target, ...sources)
+Object.assign은 타킷 객체로 소스 객체의 프로퍼티를 복사한다. 
+이때 소스 객체의 프로퍼티와 동일한 프로퍼티를 가진 타켓 객체의 프로퍼티들은 소스 객체의 프로퍼티로 덮어쓰기된다.
+리턴값으로 타킷 객체를 반환한다
+
+// Copy
+const obj = { a: 1 };
+const copy = Object.assign({}, obj);
+console.log(copy); // { a: 1 }
+// Merge
+const o1 = { a: 1 };
+const o2 = { b: 2 };
+const o3 = { c: 3 };
+const merge1 = Object.assign(o1, o2, o3);
+console.log(merge1); // { a: 1, b: 2, c: 3 }
+console.log(o1);     // { a: 1, b: 2, c: 3 }, 타겟 객체가 변경된다
+// Merge
+const o4 = { a: 1 };
+const o5 = { b: 2 };
+const o6 = { c: 3 };
+const merge2 = Object.assign({}, o4, o5, o6);
+console.log(merge2); // { a: 1, b: 2, c: 3 }
+
+★constructor()
+
+
+★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ES6+
+*생략부호( 나머지, 펼침, 해체할당 연산자 )
+-나머지
+function request(url, options, callback){	//매개 초과 시
+	var args = Array.prototype.slice.call(arguments, request.length)
+	var url = args[0]
+	var callback = args[2]
+	//..
+}
+
+-->
+function (url, options, ...callbacks){
+	var callback1 = callbacks[0]
+	var callback2 = callbacks[1]
+	//..
+}
+
+-해체할당
+function(url, options, ...[error, success]){
+	if(!url) return error(new Error('oppps'))
+	//...
+	success(data)
+}
+
+-펼침
+arr1.push(...arr2)
+array2 = [...array1, x, y, z]
+var d = new Date(...dates)
+
+////// ES5에서는 배열을 함수의 인자로 사용 -> apply() 함수를 사용
+ex)
+function request(url, options, callback) { ...}
+var requestArgs = ['http ..', {...}, function(){...}]
+request.apply(null, requestArgs)
+
+==>
+request.(...requestArgs)
+
+
+
+
+
+★Polyfill: 특정 기능이 지원되지 않는 브라우저를 위해 사용할 수 있는 코드 조각이나 플러그인
+
+★apply
+
+func.apply(thisArg, [argsArray])
+
+// thisArg: 함수 내부의 this에 바인딩할 객체
+// argsArray: 함수에 전달할 argument의 배열
+
+대표적인 용도는 arguments 객체와 같은 유사 배열 객체에 배열 메소드를 사용하는 경우
+ var arr = Array.prototype.slice.apply(arguments); // arguments.slice
+  // var arr = [].slice.apply(arguments);
+
+★call
+call() 메소드의 경우, apply()와 기능은 같지만 apply()의 두번째 인자에서 배열 형태로 넘긴 것을 각각 하나의 인자로 넘긴다.
+Person.apply(foo, [1, 2, 3]);
+
+Person.call(foo, 1, 2, 3);
+
+
+
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.doSomething = function (callback) {
+  if (typeof callback == 'function') {
+    callback.call(this);
+  }
+};
+
+function foo() {
+  console.log(this.name);	// 기본적으로 this는 window를 가르킴
+}
+
+var p = new Person('Lee');
+p.doSomething(foo);  // 'Lee'
+
+
+
+★bind
+
+ES5에 추가된 Function.prototype.bind
+함수를 실행하지 않기 때문에 명시적으로 함수를 호출할 필요가 있다.
+
+
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.doSomething = function (callback) {
+  if (typeof callback == 'function') {
+    // callback.call(this);
+    // this가 바인딩된 새로운 함수를 호출
+    callback.bind(this)();		// this가 바인딩된 새로운 함수를 리턴 -> 명시적 함수호출
+  }
+};
+
+function foo() {
+  console.log('#', this.name);
+}
+
+var p = new Person('Lee');
+p.doSomething(foo);  // 'Lee'
+
+★
+생성자함수는 대문자로
+arguments.callee는 호출된 함수의 이름
+
+
+★
+실행 컨텍스트는 실행 가능한 코드가 실행되기 위해 필요한 환경
+
+전역 코드 : 전역 영역에 존재하는 코드
+Eval 코드 : eval 함수로 실행되는 코드
+함수 코드 : 함수 내에 존재하는 코드
+
+
+
+
+★클로저
+ var box = document.querySelector('.box');
+    var toggleBtn = document.querySelector('.toggle');
+
+    var toggle = (function () {
+      var isShow = false;
+
+      // ① 클로저를 반환
+      return function () {
+        box.style.display = isShow ? 'block' : 'none';
+        // ③ 상태 변경
+        isShow = !isShow;
+      };
+    })();
+
+    // ② 이벤트 프로퍼티에 클로저를 할당
+    toggleBtn.onclick = toggle;
+
+
+
+
+var l = document.querySelectorAll("li")
+
+l.forEach((e,i)=>{
+  e.addEventListener('click',function(){
+    console.log(i)
+  })
+})
+
+★
+array.fill(value, start, end)
+
+
+
+★프로토타입
+Function.prototype.method = function (name, func) {
+  // 생성자함수의 프로토타입에 동일한 이름의 메소드가 없으면 생성자함수의 프로토타입에 메소드를 추가
+  // this: 생성자함수
+  if (!this.prototype[name]) {
+    this.prototype[name] = func;
+  }
+};
+
+function Person(name) {
+  this.name = name;
+}
+
+Person.method('setName', function (name) {
+  this.name = name;
+});
+
+Person.method('getName', function () {
+  return this.name;
+});
+
+------------------
+*의사 클래스 패턴 상속
+var Parent = (function () {
+  // Constructor
+  function Parent(name) {
+    this.name = name;
+  }
+
+  // method
+  Parent.prototype.sayHi = function () {
+    console.log('Hi! ' + this.name);
+  };
+
+  // return constructor
+  return Parent;
+}());
+
+// 자식 생성자 함수
+var Child = (function () {
+  // Constructor
+  function Child(name) {
+    this.name = name;
+  }
+
+  // 자식 생성자 함수의 프로토타입 객체를 부모 생성자 함수의 인스턴스로 교체.
+  Child.prototype = new Parent(); // ②
+
+  // 메소드 오버라이드
+  Child.prototype.sayHi = function () {
+    console.log('안녕하세요! ' + this.name);
+  };
+
+  // sayBye 메소드는 Parent 생성자함수의 인스턴스에 위치된다
+  Child.prototype.sayBye = function () {
+    console.log('안녕히가세요! ' + this.name);
+  };
+
+  // return constructor
+  return Child;
+}());
+
+var child = new Child('child'); // ①
+
+
+*프로토타입 패턴 상속
+// 부모 생성자 함수
+var Parent = (function () {
+  // Constructor
+  function Parent(name) {
+    this.name = name;
+  }
+
+  // method
+  Parent.prototype.sayHi = function () {
+    console.log('Hi! ' + this.name);
+  };
+
+  // return constructor
+  return Parent;
+}());
+
+// create 함수의 인수는 프로토타입이다.
+var child = Object.create(Parent.prototype);
+child.name = 'child';
+
+child.sayHi();  // Hi! child
+
+console.log(child instanceof Parent); // true
+
+
+
+
+★프로토타입 패턴 상속, 모듈화
+var Person = function() {
+  var name;
+
+  var F = function(arg) { name = arg ? arg : ''; };
+
+  F.prototype = {
+    getName: function() {
+      return name;
+    },
+    setName: function(arg) {
+      name = arg;
+    }
+  };
+
+  return F;
+}();
+
+var me = new Person('Lee');
+
+★ 네이티브 객체 = ECMAScript 명세에 정의된 객체
+	//Object, String, Number, Function, Array, RegExp, Date, Math
+
+// 객체리터럴을 사용하는 것이 바람직하다.
+var o = {};
+
+★에러(error) 객체
+try {
+  // foo();
+  throw new Error('Whoops!');
+} catch (e) {
+  console.log(e.name + ': ' + e.message);
+}
+
+Error 이외에 Error에 관련한 객체는 아래와 같다.
+EvalError
+InternalError
+RangeError
+ReferenceError
+SyntaxError
+TypeError
+URIError
+
+
+★심볼(Symbol) 타입
+ECMAScript 6(Javascript 2015) 에서 추가된 유일하고 변경 불가능한(immutable) 원시 타입으로 Symbol 객체는 원시 타입 Symbol 값을 생성한다.
+
+
+★호스트 객체
+window, XmlHttpRequest, HTMLElement 등의 DOM 노드 객체와 같이 호스트 환경에 정의된 객체를 말한다. 
+
+
+
+----------------------------------------------------------------------------------------------------------------
+★★★★★★★★★js
+int x = 5;
+printf("x = %d\n", x);
+
+★
+프로퍼티 키 first-name에는 반드시 따옴표를 사용해야 하지만 first_name에는 생략 가능
+ex)  'first-name' , first_name
+
+★
+for-in 문은 객체의 문자열 키(key)를 순회하기 위한 문법. 배열에는 사용하지 않는 것이 좋다. 이유는 아래와 같다.
+1.객체의 경우, 프로퍼티의 순서가 보장되지 않는다. 그 이유는 원래 객체의 프로퍼티에는 순서가 없기 때문
+2.배열 요소들만을 순회하지 않는다.
+-> es6  for-of 
+
+★immutable value vs. mutable value
+Boolean
+null
+undefined
+Number
+String
+Symbol
+원시 타입 이외의 모든 값은 객체(Object) 타입이며 객체 타입은 변경 가능한 값(mutable value)이다
+
+var user = {
+  name: 'Lee',
+  address: {
+    city: 'Seoul'
+  }
+};
+
+var myName = user.name; // 변수 myName은 string 타입이다, user.name이 원시타입, user이 객체타입
+
+★불변 데이터 패턴
+객체의 방어적 복사(defensive copy)
+Object.assign(target, ...sources)
+ex)
+// Copy
+const obj = { a: 1 };
+const copy = Object.assign({}, obj);
+console.log(copy); // { a: 1 }
+console.log(obj == copy); // false
+
+// Merge
+const o1 = { a: 1 };
+const o2 = { b: 2 };
+const o3 = { c: 3 };
+
+const merge1 = Object.assign(o1, o2, o3);
+
+console.log(merge1); // { a: 1, b: 2, c: 3 }
+console.log(o1);     // { a: 1, b: 2, c: 3 }, 타겟 객체가 변경된다!
+
+// Merge
+const o4 = { a: 1 };
+const o5 = { b: 2 };
+const o6 = { c: 3 };
+
+const merge2 = Object.assign({}, o4, o5, o6);
+
+console.log(merge2); // { a: 1, b: 2, c: 3 }
+console.log(o4);     // { a: 1 }
+ES6에서 추가된 메소드이며 Internet Explorer는 지원하지 않는다.
+
+
+불변객체화를 통한 객체 변경 방지
+Object.freeze
+ex)
+Object.freeze(user1);
+user1.name = 'Kim'; // 무시된다!
+
+-->객체 내부의 객체(Nested Object)는 변경가능 --> Deep freeze
+function deepFreeze(obj) {
+  const props = Object.getOwnPropertyNames(obj);
+
+  props.forEach((name) => {
+    const prop = obj[name];
+    if(typeof prop === 'object' && prop !== null) {
+      deepFreeze(prop);
+    }
+  });
+  return Object.freeze(obj);
+}
+
+또 다른 대안으로 Facebook이 제공하는 Immutable.js를 사용하는 방법
+
+★
+자바스크립트는 ES6의 let, const를 포함하여 모든 선언(var, let, const, function, function*, class)을 호이스팅(Hoisting)한다
+
+
+★caller 프로퍼티
+caller 프로퍼티는 자신을 호출한 함수를 의미한다.
+function bar() {
+  return 'caller : ' + bar.caller;
+}
+
+
+★타입을 반환
+function getType(target) {
+  return Object.prototype.toString.call(target).slice(8, -1);
+}
+★★★★★★★★★es5
+★strict mode
+전역에 적용한 strict mode는 스크립트 단위로 적용된다
+ <script>
+    'use strict';
+  </script>
+  <script>
+    x = 1; // 에러가 발생하지 않는다.
+    console.log(x); // 1
+  </script>
+
+*strict mode가 발생시키는 에러
+암묵적 전역 변수
+변수, 함수, 매개변수의 삭제
+매개변수 이름의 중복
+with 문의 사용
+일반 함수의 this // 일반 함수를 호출하면 this에 undefined가 바인딩
+
+★★★★★★★★★es6
+
+★ for-of
+const array = [1, 2, 3];
+array.name = 'my array';
+
+for (const value of array) {
+  console.log(value);
+}
+
+for (const [index, value] of array.entries()) {
+  console.log(index, value);
+}
+/*
+0 1
+1 2
+2 3
+*/
+
+for–in 문은 객체의 프로퍼티를 순회
+for–of 문은 배열의 요소를 순회
+
+★
+var student = {
+  name: 'Lee',
+  score: 90
+}
+
+// Object.prototype.hasOwnProperty()
+console.log(student.hasOwnProperty('name')); // true
+
+
+★★★★★★★★★React
+
+화살표 함수, createClass() -> this 자동 바인딩
