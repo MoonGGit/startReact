@@ -1651,6 +1651,65 @@ var student = {
 console.log(student.hasOwnProperty('name')); // true
 
 
+@@비동기 
+
+async function logTodoTitle() {
+  try {
+    var user = await fetchUser();  // fetchUser, fetchTodo는 통신함수  
+    if (user.id === 1) {
+      var todo = await fetchTodo();
+      console.log(todo.title); // delectus aut autem
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+★ 비동기 처리 메서드가 꼭 프로미스 객체를 반환해야 await가 의도한 대로 동작
+프로미스는 “자바스크립트 비동기 처리를 위한 객체“
+async - await 사용 않할 시, 콜백함수 또는 .then()을 사용해야 함
+.then()에서 리턴 시 해당 값을 다시 promise에 담아서 리턴
+
+getData(function (tableData) {
+  console.log(tableData); // 함수 생성 전달
+});
+
+
+new Promise();  // Pending(대기)
+new Promise(function (resolve, reject) {    // Fulfilled(이행) --> then()사용 가능
+  resolve();
+});
+new Promise(function (resolve, reject) {    // Fulfilled(이행) --> then()사용 가능
+  reject();   // Reject 실패
+});
+
+// reject()의 결과 값 Error를 err에 받음
+function getData() {
+  return new Promise(function (resolve, reject) {
+    reject(new Error("Request is failed"));
+  });
+}
+
+getData().then().catch(function (err) {
+  console.log(err); // Error: Request is failed
+});
+// then의 두번 째 콜백은 reject만 잡아냄, error는 catch로 잡아야함
+
+
+객체를 배열화(ES5)
+객체안에 length와 인덱스를 키로 가지고 있어야 함
+var obj = {
+  0:"first",
+  1:"second",
+  length:2
+}
+console.log([].slice.call(obj));    //  length만큼 키값(인덱스, 없는놈도) 대응 밸류로 배열을 만들어 반환
+[].forEach.bind(obj)(function(val){ 
+  console.log(val);
+});     // length만큼 키값(인덱스)이 존재하는 밸류만 
+
 ★★★★★★★★★React
 
 화살표 함수, createClass() -> this 자동 바인딩
+
+

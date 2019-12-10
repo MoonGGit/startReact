@@ -1,5 +1,7 @@
 @@NPM 명령어
 
+npm install 
+npm uninstall
 
 
 

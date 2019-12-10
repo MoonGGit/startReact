@@ -15,7 +15,7 @@ CTRL 좌우 방향키 : 화면 추가, 닫기
 CTRL SHIFT \ : 블럭 앞 뒤 이동
 ctrl+, : 기본설정, vscode 의 모든 설정은 파일>기본설정>설정에 지정
 
-CTRL 위아래 방향키 : 다중 커서, 취소는 esc
+CTRL alt 위아래 방향키 : 다중 커서, 취소는 esc
 
 ctrl+g : 파일의 특정 행으로 이동
 ctrl+p 를 눌러 ?를 입력하면 명령창에서 행할수 있는 명령 목록이 나온다.
@@ -26,4 +26,6 @@ Ctrl + P 를 누른 다음 > Configure Language
 
 theme Setting
 F1 > theme 입력 후 테마를 선택.
+
+Ctrl alt 드래그 or 클릭 : 마우스따라 다중 선택
 

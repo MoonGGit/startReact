@@ -46,6 +46,7 @@ module.exports = {
                 // use: 경우 여러 loader를 지정할 때 [], 하나의 경우 객체 {}
                 // loader는 단일로 사용, loader : "dd"
                 use: {
+                    // CommonJS 형식(import -> require 구문 등)으로 변환
                     loader: 'babel-loader',
                     // 최상위 디렉터리에서 .babelrc 파일
                     // 내용 : {"presets": ["@babel/preset-env", "@babel/preset-react"]}
