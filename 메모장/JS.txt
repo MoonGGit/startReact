@@ -1708,6 +1708,18 @@ console.log([].slice.call(obj));    //  length만큼 키값(인덱스, 없는놈
   console.log(val);
 });     // length만큼 키값(인덱스)이 존재하는 밸류만 
 
+const value = false || "앞이 false면 이것이 주입됨";
+
+스프레드 연산자
+const o1 = { x: 1, y: 2 };
+const o2 = { ...o1, z: 3 };
+console.log(o2);    // 객체 o1는 변화 없음
+
+for (let [key, value] of Object.entries(object1)) {
+  console.log(`${key}: ${value}`);
+}
+
+
 ★★★★★★★★★React
 
 화살표 함수, createClass() -> this 자동 바인딩

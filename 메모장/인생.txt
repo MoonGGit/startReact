@@ -1,13 +1,74 @@
 @@ 리액트
 ReactDom은 모든 값을 렌더링 하기전에 이스케이프시킴(문자열로 변환) --> XXS(cross-site-scripting)공격 방지
+<호출 순서>
+1. Initial
+2. GetDefaultProps
+3. GetInitialState
+4. componentWillMount(){...}
+5. Render
+6. componentDidMount(){...}     // 여기서 fetch나 axios 사용
+
+componentWillUnmount(){...}
+
+컴포넌트의 props 변경시: componentWillReceiveProps -> shouldComponentUpdate -> 
+        componentWillUpdate(무한루프 조심)-> render -> componentDidUpdate 순으로 진행
+
+컴포넌트의 state 변경시: shouldComponentUpdate -> componentWillUpdate-> 
+        render -> componentDidUpdate 순으로 진행
+
+
+
+
+setState({
+    ...
+})  // 비동기 쌉가능
+
+this.setState((state, props) => ({
+  counter: state.counter + props.increment
+}));    //  state : 이전의 state, props : 업데이트 적용시점의 props 
+
+  handleClick() {
+    this.setState(state => ({
+      isToggleOn: !state.isToggleOn
+    }));
+  }
+
+
+<a href="#" onclick="console.log('The link was clicked.'); return false">
+  일반 HTNML에서의 기본동작 방지
+</a>
+
+function ActionLink() {
+  function handleClick(e) {
+    e.preventDefault();         //e는 합성이벤트, 브라우저 호환 걱정 X
+    console.log('The link was clicked.');
+  }
+
+  return (
+    <a href="#" onClick={handleClick}>
+      Click me
+    </a>
+  );
+}
+
+일반적으로 onClick={this.handleClick}과 같이 뒤에 ()를 사용하지 않고 메서드를 참조할 경우, 해당 메서드를 바인딩 해야 합니다.
 
 
 @@리덕스
 
+mapStateToProp는 재렌더링
+mapDispatchToProps는 재렌더링 안함
+connect(mapStateToProps, { editLabResult: requestEmployees, anotherAction, etc... })
+
 
 
 @@라우터 
+react-router와 react-router-dom의 차이 :
+react-router는 코어까지 들어있는 master 브랜치에 있는 라이브러리 입니다.
+그리고 react-router-dom은 그 중에서 DOM이 인식할 수 있는 컴포넌트들만 뺀 라이브러리 입니다. 
 
+// This demo uses a HashRouter instead of BrowserRouter
+// because there is no server to match URLs
 
 
 @@훅
@@ -15,5 +76,129 @@ ReactDom은 모든 값을 렌더링 하기전에 이스케이프시킴(문자열
 
 
 @@axios
+형브라우저를 지원합니다.(Fetch API의 경우는 폴리필이 필요합니다.)
+요청을 중단시킬 수 있습니다.
+응답 시간 초과를 설정하는 방법이 있습니다.
+CSRF 보호 기능이 내장되어있다.    //  Cross-site request forgery, 사이트 간 요청 위조
+JSON 데이터 자동변환
+Node.js에서의 사용
+
+axios({
+  url: 'https://test/api/cafe/list/today',
+  method: 'get',
+  data: {
+    foo: 'diary'
+  }
+});
+
+axios.get()
+axios.post()
+axios.delete()
+axios.put()
+axios.patch()
+axios.options()
+
+async/await 구문을 사용하지 않으면 promise구문 사용 가능
+
+axios.get(url).then(res => {...}).catch(err=>{...});
+
+axios.get(url, {
+  params: {
+    foo: 'bar'
+  }
+});
 
 
+@ 미들웨어
+파일 생성시 : ~~Middleware.js
+//////
+const loggerMiddleware = store => next => action => {
+    // 현재 스토어 상태값 기록
+    console.log('현재 상태', store.getState());
+    // 액션 기록
+    console.log('액션', action);
+
+    // 액션을 다음 미들웨어, 혹은 리듀서로 넘김
+    const result = next(action);
+
+    // 액션 처리 후의 스토어 상태 기록
+    console.log('다음 상태', store.getState());
+    console.log('\n'); // 기록 구분을 위한 비어있는 줄 프린트
+
+    return result; // 여기서 반환하는 값은 store.dispatch(ACTION_TYPE) 했을때의 결과로 설정됩니다
+}
+
+export default loggerMiddleware;
+//////
+
+import { createStore, applyMiddleware } from 'redux'
+
+// 미들웨어가 여러개인경우에는 파라미터로 여러개를 전달해주면 됩니다. 예: applyMiddleware(a,b,c)
+// 미들웨어의 순서는 여기서 전달한 파라미터의 순서대로 지정됩니다.
+const store = createStore(modules, applyMiddleware(loggerMiddleware))
+
+
+-------------------------------------------
+import { createLogger } from 'redux-logger';        // 잘 만들어진 것 사용 ㅎㅎ 
+const logger = createLogger(); 
+
+const store = createStore(modules, applyMiddleware(logger))
+
+export default store; 
+
+@ redux-thunk
+특정 액션이 몇초뒤에 실행하게 하거나, 현재 상태에 따라 무시되게 하려면 사용
+액션 예제)
+function incrementAsync(){
+  return (dispatch, getState) => {    // dispatch를 파라미터를 가지는 함수를 리턴
+    const {값} = getState();      // 
+    if(값){
+      setTimeout(()=>{
+        dispatch(다른 함수());
+      }, 1000);
+    }
+  }
+}         // redux-thunk 미들웨어에서, 전달받은 액션이 함수 형태 일 때, 그 함수에 dispatch 와 getState 를 넣어서 실행해줍니다
+
+function createThunkMiddleware(extraArgument) {
+  return ({ dispatch, getState }) => next => action => {
+    if (typeof action === 'function') {
+      return action(dispatch, getState, extraArgument);
+    }
+
+    return next(action);
+  };
+}
+
+const thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+export default thunk;
+
+
+@ 로거, 썽크 적용
+import { createStore, applyMiddleware } from 'redux';
+import modules from './modules';
+
+import { createLogger } from 'redux-logger';
+import ReduxThunk from 'redux-thunk';
+
+/* 로그 미들웨어를 생성 할 때 설정을 커스터마이징 할 수 있습니다.
+   https://github.com/evgenyrodionov/redux-logger#options
+*/
+const logger = createLogger(); 
+
+const store = createStore(modules, applyMiddleware(logger, ReduxThunk))
+
+export default store;
+
+
+@ rest센스
+밑줄(_)은 URI에 사용하지 않는다.
+URI 경로에는 소문자가 적합하다.
+
+대표적인 HTTP 메소드 4가지
+GET: 해당 리소스를 조회
+POST: 해당 URL를 요청하면 리소스를 생성
+PUT: 해당 리소스를 수정
+DELETE: 해당 리소스를 삭제
